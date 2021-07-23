@@ -5,7 +5,8 @@ services:
                 build: ./telegram
                 privileged: true
                 restart: always
-                
+                ports: 
+                        - 3000
                 labels:
                         io.balena.features.dbus: '1'
                         io.balena.features.kernel-modules: '1'
@@ -14,10 +15,14 @@ services:
                         - 'shared-media:/var/media'
         
         ei-processing:
-                build: ./ei-processing
+                build: ./ei-processing2
                 privileged: true
                 restart: always
                 network_mode: host
+                ports: 
+                        - 80
+                depends_on:
+                        - telegram
                 labels:
                         io.balena.features.dbus: '1'
                         io.balena.features.kernel-modules: '1'

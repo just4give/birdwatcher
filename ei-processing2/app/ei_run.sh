@@ -18,5 +18,5 @@ edge-impulse-linux-runner --api-key $EI_API_KEY_IMAGE --download modelfile.eim
 
 echo "Downloaded modelfile.eim"
 
-#python3 classify.py /usr/src/app/modelfile.eim
-python3 server.py
+python3 classify.py /usr/src/app/modelfile.eim
+#python3 server.py

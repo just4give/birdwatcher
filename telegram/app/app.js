@@ -32,8 +32,8 @@ app.post('/send/image', async (req, res)=>{
     
     await bot.sendPhoto({
         chat_id: TG_CHAT_ID,
-        caption: `${req.title}`,
-        photo: fs.createReadStream(`/var/media/${body.filename}`)
+        caption: `${req.body.title}`,
+        photo: fs.createReadStream(`/var/media/${req.body.filename}`)
     })
     res.json({success: true});
 
