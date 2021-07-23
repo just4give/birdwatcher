@@ -1,0 +1,26 @@
+name: "bird-watcher-ei"
+type: "sw.application"
+description: "This project enables you to run Edge Impulse Linux SDK on balenaOS to detect birds"
+assets:
+  repository:
+    type: "blob.asset"
+    data:
+      url: "https://github.com/just4give/bird-watcher-ei"
+  logo:
+    type: "blob.asset"
+    data:
+      url: "https://raw.githubusercontent.com/just4give/bird-watcher-ei/master/logo.png"
+data:
+    applicationEnvironmentVariables:
+      - EI_COLLECT_MODE_IMAGE: 0
+      - EI_API_KEY_IMAGE: put_your_api_key
+    applicationConfigVariables:
+      - BALENA_HOST_CONFIG_start_x: 1
+      - BALENA_HOST_CONFIG_gpu_mem_256: 192
+      - BALENA_HOST_CONFIG_gpu_mem_512: 256
+      - BALENA_HOST_CONFIG_gpu_mem_1024: 448
+    defaultDeviceType: "raspberrypi4-64"
+    supportedDeviceTypes: 
+      - "raspberrypi4-64"
+      - "fincm3"
+      - "raspberrypi3"
