@@ -28,7 +28,7 @@ class CameraDevice():
 
     async def get_latest_frame(self):
         ret, frame = self.cap.read()
-        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        #frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         await asyncio.sleep(0)
         return self.rotate(frame)
 
