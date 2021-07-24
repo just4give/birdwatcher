@@ -18,23 +18,34 @@ app.use(express.urlencoded({
 
 app.post('/send/audio', async (req, res)=>{
     console.log("send audio ", req.body);
-    await bot.sendAudio({
-                    chat_id: TG_CHAT_ID,
-                    caption: `${req.title}`,
-                    audio: fs.createReadStream(`/var/media/${body.filename}`)
-                })
+
+    try {
+        await bot.sendAudio({
+            chat_id: TG_CHAT_ID,
+            caption: `${req.title}`,
+            audio: fs.createReadStream(`/var/media/${body.filename}`)
+        })
+    } catch (error) {
+        console.log(error);
+    }
+    
     res.json({success: true});
 
 });
 
 app.post('/send/image', async (req, res)=>{
     console.log("send image ", req.body);
+
+    try {
+        await bot.sendPhoto({
+            chat_id: TG_CHAT_ID,
+            caption: `${req.body.title}`,
+            photo: fs.createReadStream(`/var/media/${req.body.filename}`)
+        })
+    } catch (error) {
+        console.log(error);
+    }
     
-    await bot.sendPhoto({
-        chat_id: TG_CHAT_ID,
-        caption: `${req.body.title}`,
-        photo: fs.createReadStream(`/var/media/${req.body.filename}`)
-    })
     res.json({success: true});
 
 });

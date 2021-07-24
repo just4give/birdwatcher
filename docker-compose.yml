@@ -15,7 +15,7 @@ services:
                         - 'shared-media:/var/media'
         
         ei-processing:
-                build: ./ei-processing2
+                build: ./ei-processing
                 privileged: true
                 restart: always
                 network_mode: host

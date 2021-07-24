@@ -47,10 +47,9 @@ RUN cd /tmp && \
 RUN npm config set user root && sudo npm install edge-impulse-linux -g
 
 RUN pip3 install --upgrade pip 
-RUN pip3 install numpy opencv-python
+RUN pip3 install numpy opencv-python requests
 RUN pip3 install edge_impulse_linux -i https://pypi.python.org/simple
-RUN pip3 install async-timeout av
-RUN pip3 install websocket-client aiohttp aiohttp_basicauth aioice aiortc pyOpenSSL requests
+RUN pip3 install Flask flask-socketio flask_cors flask_basicauth
 
 WORKDIR /usr/src/app
 

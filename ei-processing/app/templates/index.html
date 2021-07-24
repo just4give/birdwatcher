@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="shortcut icon" href="../static/favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <title>Balena Edge Impulse Cam</title>
+    <style>
+      body{
+        background-color: #03a9f4;
+      }
+      .title{
+        color: white;
+      }
+
+      .magrin-top-20{
+        margin-top: 20px;
+      }
+
+      #video-container{
+        
+        text-align: center;
+      }
+      .camera{
+        border: 5px solid #82e3ef;
+        border-radius: 10px;
+        width: 80%;
+      }
+
+    </style>
+</head>
+<body>
+<div class="header">
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+      <div class="container">
+        <a class="navbar-brand" href="#"><img style="width: 13rem; height: auto;" src="../static/balena-cam.svg"></a>
+        <a class="navbar-brand" href="#"><img style="width: 13rem; height: auto;" src="../static/ei_logo.png"></a>
+        <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#collapsibleNavbar" aria-expanded="false">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+    
+      </div>
+    </nav>
+  </div>
+    <h4 class="text-center title magrin-top-20">Balena Edge Impulse Cam</h4>
+    <div id="video-container" class="container">
+     <img class="camera" src="/video_feed"  alt="angular logo"/>
+    </div>
+    
+</body>
+</html>
