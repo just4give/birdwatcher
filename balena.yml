@@ -1,15 +1,15 @@
-name: "bird-watcher-ei"
+name: "balena-ei-linux-bird-watcher"
 type: "sw.application"
 description: "This project enables you to run Edge Impulse Linux SDK on balenaOS to detect birds"
 assets:
   repository:
     type: "blob.asset"
     data:
-      url: "https://github.com/just4give/bird-watcher-ei"
+      url: "https://github.com/just4give/balena-ei-linux-bird-watcher"
   logo:
     type: "blob.asset"
     data:
-      url: "https://raw.githubusercontent.com/just4give/bird-watcher-ei/master/logo.png"
+      url: "https://raw.githubusercontent.com/just4give/balena-ei-linux-bird-watcher/master/logo.png"
 data:
     applicationEnvironmentVariables:
       - EI_COLLECT_MODE_IMAGE: 0
