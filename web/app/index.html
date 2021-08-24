@@ -235,7 +235,9 @@
     #gallery-page .thumbnail .caption{
       color: white;
     }
-
+    #gallery-page .thumbnail .NA{
+      display: none
+    }
     .navbar-nav li:hover{
       cursor: pointer;
     }
@@ -379,6 +381,9 @@
       console.log('DOM is ready');
 
       var socket;
+      //var serverUrl =  "http://192.168.0.44";
+      var serverUrl =  "";
+      var snapshots = [];
       
       $.ajaxSetup({
         headers:{
@@ -507,49 +512,10 @@
         $("#gallery-page").show();
 
         
-        // var data = [
-        //   {
-        //     "bird": "NA",
-        //     "filename": "d51181f4-c265-4399-b417-073743628f43.jpg",
-        //     "id": 1,
-        //     "ts": "2021-08-19 13:50:15.289885",
-        //   }
-        // ]
-
-        // var html = "";
-        //   data.forEach(item=>{
-        //             html = html+ `<div class="col-sm-6 col-md-4">
-        //                       <div class="thumbnail">
-        //                         <img src="/${item.filename}">
-        //                         <div class="caption">
-        //                           <h4>${item.bird}</h4>
-        //                           <h6>${item.ts}</h6>
-        //                           <p><a href="#" class="btn btn-success" role="button">Download</a> 
-        //                             <a onclick="deleteSnap(${item.id} '${item.filename}')" class="btn btn-danger" role="button">Delete</a></p>
-        //                         </div>
-        //                       </div>
-        //                     </div>`
-        //   });
-        //   $("#gallery-view").html(html);
         
-          
-        $.get( "/api/snapshots", function(data) {
-
-          var html = "";
-          data.forEach(item=>{
-                    html = html+ `<div class="col-sm-6 col-md-4">
-                              <div class="thumbnail">
-                                <img src="/${item.filename}">
-                                <div class="caption">
-                                  <h4>${item.bird}</h4>
-                                  <h6>${item.ts}</h6>
-                                  <p><a href="#" class="btn btn-success" role="button">Download</a> 
-                                    <a onclick="deleteSnap(${item.id}, '${item.filename}')" class="btn btn-danger" role="button">Delete</a></p>
-                                </div>
-                              </div>
-                            </div>`
-          });
-          $("#gallery-view").html(html);
+        $.get( serverUrl+"/api/snapshots", function(data) {
+          snapshots = data;
+          loadSnapshots();
           
         })
 
@@ -574,11 +540,33 @@
         },2000);
       }
       
+      loadSnapshots = function(){
+        var html = "";
+          snapshots.forEach(item=>{
+                    html = html+ `<div class="col-sm-6 col-md-4">
+                              <div class="thumbnail">
+                                <img src="/${item.filename}">
+                                <div class="caption">
+                                  <h4 class="${item.bird}">${item.bird}</h4>
+                                  <h6>${item.ts}</h6>
+                                  <p><a href="#" class="btn btn-success" role="button">Download</a> 
+                                    <a onclick="deleteSnap(${item.id}, '${item.filename}')" class="btn btn-danger" role="button">Delete</a></p>
+                                </div>
+                              </div>
+                            </div>`
+          });
+          $("#gallery-view").html(html);
+      }
+
       deleteSnap = function(id,filename){
        
+        var index = snapshots.findIndex(m=> m.id == id);
         
-        $.post( "/api/delete-snap",JSON.stringify({id:id,filename:filename}), function(response) {
+        $.post( serverUrl+"/api/delete-snap",JSON.stringify({id:id,filename:filename}), function(response) {
           showAlert('Snap deleted successfully!');
+          
+          snapshots.splice(index,1);
+          loadSnapshots();
           
         })
       }
@@ -592,7 +580,7 @@
     }
     function connectToSocket(token){
       socket = io.connect('',{query:{token:token}});
-      //socket = io.connect('http://192.168.0.xx',{query:{token:token}});
+      //socket = io.connect('http://192.168.0.44',{query:{token:token}});
 
       socket.on( 'ei_event', function(predictions) {
         //console.log('ei_event',predictions);

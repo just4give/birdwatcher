@@ -60,7 +60,7 @@ def capture():
                           ('filename','bird', 'ts') 
                           VALUES (?, ?, ?);"""
 
-    data_tuple = (key, 'NA', datetime.datetime.now())
+    data_tuple = (key, 'Snapshot', datetime.datetime.now())
     insert_table(conn,sqlite_insert_with_param,data_tuple)
 
     cv2.imwrite('/var/media/frame.jpg', video_frame)
