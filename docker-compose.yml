@@ -1,4 +1,4 @@
-version: '2'
+version: '2.1'
 services: 
         
         telegram:
@@ -19,8 +19,9 @@ services:
                 privileged: true
                 restart: always
                 network_mode: host
+                container_name: ei-processing
                 ports: 
-                        - 80
+                        - 8080
                 depends_on:
                         - telegram
                 labels:
@@ -32,7 +33,25 @@ services:
                 environment:
                         - UDEV=1
                 devices:
-                        - '/dev:/dev'      
+                        - '/dev:/dev'
+        web:
+                build: ./web
+                container_name: web
+                privileged: true
+                restart: always
+                network_mode: host
+                labels:
+                        io.balena.features.dbus: '1'
+                        io.balena.features.kernel-modules: '1'
+                ports: 
+                        - 80
+                depends_on:
+                        - ei-processing
+                volumes: 
+                        - 'shared-data:/var/data'
+                        - 'shared-media:/var/media'
+                links:
+                        - ei-processing
 
 volumes:
         shared-data:

@@ -2,8 +2,8 @@ const TelegramBot = require('telegram-bot-api');
 const axios = require('axios');
 const fs = require('fs');
 
-const TG_TOKEN =  process.env.TG_TOKEN ; 
-const TG_CHAT_ID = process.env.TG_CHAT_ID ;
+const TG_TOKEN =  process.env.TG_TOKEN ||''; 
+const TG_CHAT_ID = process.env.TG_CHAT_ID ||'';
 const bot = new TelegramBot({token: TG_TOKEN}); 
 
 const express = require('express');

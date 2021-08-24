@@ -47,12 +47,13 @@ RUN cd /tmp && \
 RUN npm config set user root && sudo npm install edge-impulse-linux -g
 
 RUN pip3 install --upgrade pip 
-RUN pip3 install numpy opencv-python requests
+RUN pip3 install numpy opencv-python requests 
 RUN pip3 install edge_impulse_linux -i https://pypi.python.org/simple
-RUN pip3 install Flask flask-socketio flask_cors flask_basicauth
+RUN pip3 install Flask flask-socketio==4.3.2 flask_cors flask_basicauth
 
 WORKDIR /usr/src/app
 
+EXPOSE 8080
 
 COPY ./app/ /usr/src/app/
 

@@ -16,6 +16,10 @@ data:
       - EI_API_KEY_IMAGE: put_your_EI_api_key
       - TG_CHAT_ID: put_your_telegram_chatbot_id
       - TG_KEY: put_your_telegram_key
+      - TG_DISABLE: Y
+      - USERNAME: birdwatcher
+      - PASSWORD: birdwatcher
+      
     applicationConfigVariables:
       - BALENA_HOST_CONFIG_start_x: 1
       - BALENA_HOST_CONFIG_gpu_mem_256: 192

@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="shortcut icon" href="../static/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+    integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+  <!-- Latest compiled and minified JavaScript -->
+  
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+    integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+    <link rel="shortcut icon" type="image/png" href="./assets/logo.png"/>
+    <link rel="icon" type="image/png" href="./assets/logo.png"/>
+    <link rel="apple-touch-icon" href="./assets/logo.png">
+
+
+
+  <title>Bird Watcher 2.0</title>
+  <style>
+    body {
+      background-color: #cddc39;
+    }
+
+    .title {
+      color: white;
+      font-size: 1.5em;
+    }
+
+    .magrin-top-20 {
+      margin-top: 20px;
+    }
+
+    #video-container {
+
+      text-align: center;
+    }
+
+    #video-container button {
+      background-color: #000000;
+      color: white;
+      border-radius: 50%;
+      width: 70px;
+      height: 70px;
+      box-shadow: none;
+      margin: auto;
+    }
+
+    #video-container .classification{
+      margin-bottom: 10px;
+    }
+
+    #video-container .classification ul{
+      list-style: none;
+      display: flex;
+      margin: auto;
+      width: 400px;
+    }
+
+    #video-container .classification li{
+      padding: 5px 10px;
+      background-color: #f44336;
+      border-radius: 5px;
+      margin-right: 10px;
+      color: white;
+      font-size: 1.2em;
+      text-transform: capitalize;
+    }
+
+    .camera {
+      /* border: 5px solid #b0bec5; */
+      border-radius: 10px;
+      width: 80%;
+      max-width: 640px;
+      margin-bottom: 20px;
+    }
+
+    .bg-dark {
+      background-color: #000000 !important;
+    }
+
+
+    .navbar-brand img {
+      height: 100%;
+      float: left;
+      margin-right: 10px;
+    }
+
+    .footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      height: 60px;
+      line-height: 60px;
+
+      background-color: #000000;
+      overflow: hidden;
+    }
+
+    .footer ul {
+      list-style: none;
+      overflow: hidden;
+      color: white;
+      text-align: center;
+      padding: 0px;
+      display: flex;
+      width: 400px;
+      margin: auto;
+    }
+
+    .footer ul li {
+      width: 100px;
+      background-color: #263238;
+      padding: 0px 10px;
+      border-right: 1px solid #607d8b;
+
+    }
+
+    footer ul li.active {
+      background-color: #607d8b;
+    }
+
+    .footer ul li a {
+      color: white;
+      text-decoration: none;
+    }
+
+    .footer ul li a i {
+      margin-right: 3px;
+    }
+
+    .login-table {
+      margin: auto;
+      text-align: center;
+    }
+
+    .login-table input[type="text"],
+    input[type="password"] {
+      background: #263238;
+      border: none;
+      color: white;
+      font-size: 15px;
+      border-radius: 10px;
+      padding: 10px;
+      width: 300px;
+      text-align: center;
+      margin-top: 5px;
+    }
+
+    .login-table button {
+      background-color: #000000;
+      font-size: 14px;
+      padding: 10px 40px 10px 40px;
+      border-radius: 10px;
+      border: 0px;
+      color: white;
+      margin-top: 20px;
+    }
+
+    .login-table ::placeholder {
+      /* Chrome, Firefox, Opera, Safari 10.1+ */
+      color: white;
+      opacity: 0.5;
+      /* Firefox */
+    }
+
+
+    .disclaimer {
+      position: relative;
+      top: 220px;
+      text-align: center;
+      color: #9e9e9e;
+      padding: 20px;
+    }
+
+    .capitalize {
+      text-transform: capitalize;
+    }
+
+    .snap-button{
+      background-color: red;
+    }
+
+    #settings-page{
+      text-align: center;
+    }
+
+    #settings-page button {
+      background-color: #000000;
+      font-size: 14px;
+      padding: 10px 40px 10px 40px;
+      border-radius: 10px;
+      border: 0px;
+      color: white;
+      
+    }
+
+    .alert{
+      position: fixed;
+      bottom: 60px;
+      right: 0;
+      z-index: 1;
+      text-align: center;
+      margin-right: 10px;
+      background: green;
+      color: white;
+    }
+    .logo-holder{
+      position: fixed;
+      bottom: 0px;
+      width: 100%;
+      padding: 5px;
+    }
+    .logo-holder img{
+      width: 100px;
+    }
+
+    #gallery-page{
+      padding: 10px;
+    }
+
+    #gallery-page .thumbnail{
+      border: 1px solid black;
+      background-color: black;
+    }
+
+    #gallery-page .thumbnail .caption{
+      color: white;
+    }
+
+    .navbar-nav li:hover{
+      cursor: pointer;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div class="header">
+    <!-- <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+      <div class="container">
+        <a class="navbar-brand title" href="#">Bird Watcher 2.0
+          <img src="./assets/logo.png">
+        </a>
+      </div>
+    </nav> -->
+    <nav class="navbar navbar-inverse navbar-dark">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand title" href="#">Bird Watcher 2.0
+            <img src="./assets/logo.png">
+          </a>
+        </div>
+    
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <!-- <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+            <li><a href="#">Link</a></li> -->
+            <li id="home-button" class="active"><a><i class="fa fa-home" aria-hidden="true"></i> Home</li></a>
+            <li id="gallery-button"><a ><i class="fa fa-bars" aria-hidden="true"></i> Snaps</li></a>
+            <li id="settings-button"><a ><i class="fa fa-cogs" aria-hidden="true"></i> Settings</li></a>
+            <li id="notif-button"><a><i class="fa fa-bell" aria-hidden="true"></i> Activity</li></a>
+            
+          </ul>
+          
+         
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+  </div>
+  <div id="alert" class="alert alert-success" role="alert"></div>
+  <div id="login-page">
+    <table class="login-table" id="login-table">
+      <tr>
+        <td>
+          <input type="text" id="username" placeholder="Enter username">
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <input type="password" id="password" placeholder="Enter password">
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <button id="login">LOGIN</button>
+        </td>
+      </tr>
+
+    </table>
+  </div>
+
+  <div id="home-page">
+    <div id="video-container" >
+      <div class="classification">
+        <ul id="classification">
+          
+        </ul>
+      </div>
+      <div>
+        <img id="video" class="camera" src="" />
+      </div>
+      <div>
+        <button id="capture" class="snap-button"><i class="fa fa-lg fa-camera" aria-hidden="true"></i></li></button>
+      </div>
+
+      
+      <div class="logo-holder row">
+        <div class="col-xs-4">
+          <img src="./assets/ei_logo.png">
+        </div>
+        <div class="col-xs-4" style="margin-top: 10px;">
+          <img src="./assets/balena-cam.png">
+        </div>
+        
+        <div class="col-xs-4" style="margin-top: 10px;">
+          <h6>V 2.0.0</h6>
+        </div>
+        
+        
+      </div>
+    </div>
+    
+</div>
+
+<div id="gallery-page">
+  <div class="row" id="gallery-view">
+    
+  </div>
+</div>
+
+<div id="settings-page">
+  <div class="row">
+    <p>Telegram Notification</p>
+    <button id="tg-btn">Enable</button>
+  </div>
+  <div>
+    <button id="logout" style="margin-top: 20px;">LOGOUT</button>
+  </div>
+</div>
+
+
+  <!-- <footer class="footer">
+    <div>
+      <ul class="">
+        <li id="home-button" class="active"><a><i class="fa fa-home" aria-hidden="true"></i>Home</li></a>
+        <li id="gallery-button"><a ><i class="fa fa-bars" aria-hidden="true"></i>Snaps</li></a>
+        <li id="settings-button"><a ><i class="fa fa-cogs" aria-hidden="true"></i>Settings</li></a>
+        <li id="notif-button"><a><i class="fa fa-bell" aria-hidden="true"></i>Activity</li></a>
+      </ul>
+    </div>
+  </footer> -->
+  
+
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+    crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js" crossorigin="anonymous"></script>
+  <script>
+
+    $(document).ready(function () {
+      console.log('DOM is ready');
+
+      var socket;
+      
+      $.ajaxSetup({
+        headers:{
+            'Content-Type': "application/json",
+            'contentType': "application/json; charset=utf-8"
+        }
+      });
+
+
+      var token = localStorage.getItem("token");
+
+      if(token){
+        $("#login-page").hide();
+        $("#home-page").show();
+        //document.querySelector('#video').src = '/video_feed?token=' + token;
+        connectToSocket(token);
+      }else{
+        $("#login-page").show();
+        $("#home-page").hide();
+      }
+
+      $("#settings-page").hide();
+      $("#gallery-page").hide();
+      $("#alert").hide();
+      
+      
+
+      $("#login").click(()=>{
+          
+          var username = $("#username").val();
+          var password = $("#password").val();
+          token = window.btoa(username+':'+password);
+          
+          localStorage.setItem("token",token);
+          //document.querySelector('#video').src = '/video_feed?token=' + token;
+          connectToSocket(token);
+          $("#login-page").hide();
+          $("#home-page").show();
+
+      });
+
+     
+
+      $("#logout").click(()=>{
+        $("#login-page").show();
+        $("#settings-page").hide();
+        localStorage.removeItem("token");
+        token = undefined;
+        disconnectSocket();
+        $("#home-button").addClass('active');
+        $("#settings-button").removeClass('active');
+      })
+
+      $("#capture").click(()=>{
+
+        
+        
+        $.post( "/api/capture",{}, function(response) {
+          
+          showAlert('Image captured successfully!');
+          
+        })
+
+      })
+
+      //tab buttons
+      
+
+      $("#settings-button").click(()=>{
+        $("#settings-button").addClass('active');
+        $("#home-button").removeClass('active');
+        $("#gallery-button").removeClass('active');
+        $("#notif-button").removeClass('active');
+        $("#home-page").hide();
+        $("#settings-page").show();
+        $.get( "/api/tg", function(response) {
+          //console.log(response);
+          if(response.status === "N"){
+              $("#tg-btn").html("Disable");
+          }else{
+            $("#tg-btn").html("Enable");
+          }
+          
+          
+        })
+
+      })
+      $("#tg-btn").click(()=>{
+        var tgStatus = "N";
+        if($("#tg-btn").html() === "Disable"){
+          tgStatus = "Y";
+          $("#tg-btn").html("Enable");
+        }else{
+          tgStatus = "N";
+          $("#tg-btn").html("Disable");
+        }
+        $.post( `/api/tg-update`,JSON.stringify({status: tgStatus}), function(response) {
+          
+        })
+
+      });
+
+
+      $("#home-button").click(()=>{
+        $("#settings-button").removeClass('active');
+        $("#home-button").addClass('active');
+        $("#gallery-button").removeClass('active');
+        $("#notif-button").removeClass('active');
+        if(token){
+          $("#home-page").show();
+        }else{
+          $("#login-page").show();
+        }
+        
+        $("#settings-page").hide();
+        $("#gallery-page").hide();
+      })
+
+      $("#gallery-button").click(()=>{
+        $("#settings-button").removeClass('active');
+        $("#home-button").removeClass('active');
+        $("#gallery-button").addClass('active');
+        $("#notif-button").removeClass('active');
+        $("#home-page").hide();
+        $("#settings-page").hide();
+        $("#gallery-page").show();
+
+        
+        // var data = [
+        //   {
+        //     "bird": "NA",
+        //     "filename": "d51181f4-c265-4399-b417-073743628f43.jpg",
+        //     "id": 1,
+        //     "ts": "2021-08-19 13:50:15.289885",
+        //   }
+        // ]
+
+        // var html = "";
+        //   data.forEach(item=>{
+        //             html = html+ `<div class="col-sm-6 col-md-4">
+        //                       <div class="thumbnail">
+        //                         <img src="/${item.filename}">
+        //                         <div class="caption">
+        //                           <h4>${item.bird}</h4>
+        //                           <h6>${item.ts}</h6>
+        //                           <p><a href="#" class="btn btn-success" role="button">Download</a> 
+        //                             <a onclick="deleteSnap(${item.id} '${item.filename}')" class="btn btn-danger" role="button">Delete</a></p>
+        //                         </div>
+        //                       </div>
+        //                     </div>`
+        //   });
+        //   $("#gallery-view").html(html);
+        
+          
+        $.get( "/api/snapshots", function(data) {
+
+          var html = "";
+          data.forEach(item=>{
+                    html = html+ `<div class="col-sm-6 col-md-4">
+                              <div class="thumbnail">
+                                <img src="/${item.filename}">
+                                <div class="caption">
+                                  <h4>${item.bird}</h4>
+                                  <h6>${item.ts}</h6>
+                                  <p><a href="#" class="btn btn-success" role="button">Download</a> 
+                                    <a onclick="deleteSnap(${item.id}, '${item.filename}')" class="btn btn-danger" role="button">Delete</a></p>
+                                </div>
+                              </div>
+                            </div>`
+          });
+          $("#gallery-view").html(html);
+          
+        })
+
+
+      })
+
+      $("#settings-button").click(()=>{
+        $("#settings-button").addClass('active');
+        $("#home-button").removeClass('active');
+        $("#gallery-button").removeClass('active');
+        $("#notif-button").removeClass('active');
+        $("#home-page").hide();
+        $("#gallery-page").hide();
+        $("#settings-page").show();
+      })
+
+      showAlert = function(message){
+        $("#alert").html(message);
+        $("#alert").show();
+        setTimeout(()=>{
+          $("#alert").hide();
+        },2000);
+      }
+      
+      deleteSnap = function(id,filename){
+       
+        
+        $.post( "/api/delete-snap",JSON.stringify({id:id,filename:filename}), function(response) {
+          showAlert('Snap deleted successfully!');
+          
+        })
+      }
+
+    });
+    
+    function disconnectSocket(){
+      if(socket){
+        socket.disconnect();
+      }
+    }
+    function connectToSocket(token){
+      socket = io.connect('',{query:{token:token}});
+      //socket = io.connect('http://192.168.0.xx',{query:{token:token}});
+
+      socket.on( 'ei_event', function(predictions) {
+        //console.log('ei_event',predictions);
+        var html ="";
+        
+        predictions.forEach(m=>{
+          html = html = `<li>${m.label} ${m.score}%</li>`;
+        })
+
+        $("#classification").html(html);
+
+      });
+
+      socket.on( 'stream', function(image) {
+       
+        document.querySelector('#video').src = image;
+      });
+
+
+
+    }
+  </script>
+
+</body>
+
+</html>
