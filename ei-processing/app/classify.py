@@ -104,7 +104,7 @@ def tg_status_update():
 def snapshots():
     try:
         c = conn.cursor()
-        c.execute("select * from snapshots")
+        c.execute("select * from snapshots order by date(ts) DESC")
         rows = c.fetchall()
         data = []
         for row in rows:
