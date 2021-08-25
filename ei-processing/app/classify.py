@@ -16,6 +16,7 @@ import sqlite3
 import uuid
 import datetime
 import logging
+import json
 
 
 async_mode = None
@@ -68,6 +69,11 @@ def capture():
 
     return jsonify({"success":"true","key":key}) 
 
+
+@app.route('/api/birds', methods=['GET'])
+def learn_birds():
+    data = json.loads(open("./birds.json").read())
+    return jsonify(data) 
 
 @app.route('/api/tg', methods=['GET'])
 def tg_status():
