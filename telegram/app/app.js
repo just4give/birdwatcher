@@ -1,6 +1,7 @@
 const TelegramBot = require('telegram-bot-api'); 
 const axios = require('axios');
 const fs = require('fs');
+const eisdk = require('./ei_sdk');
 
 const TG_TOKEN =  process.env.TG_TOKEN ||''; 
 const TG_CHAT_ID = process.env.TG_CHAT_ID ||'';
@@ -42,6 +43,21 @@ app.post('/send/image', async (req, res)=>{
             caption: `${req.body.title}`,
             photo: fs.createReadStream(`/var/media/${req.body.filename}`)
         })
+    } catch (error) {
+        console.log(error);
+    }
+    
+    res.json({success: true});
+
+});
+
+app.post('/ingest', async (req, res)=>{
+    console.log("ingest image ", req.body);
+
+    try {
+        await eisdk.ingest({
+            filename: `/var/media/${req.body.filename}`
+        });
     } catch (error) {
         console.log(error);
     }

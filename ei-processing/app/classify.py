@@ -28,6 +28,7 @@ videoCaptureDeviceId = 0
 sysusername = os.environ['USERNAME']
 syspassword = os.environ['PASSWORD']
 tg_disable  = os.environ['TG_DISABLE']
+EI_API_KEY_IMAGE = os.environ['EI_API_KEY_IMAGE']
 
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
@@ -64,8 +65,6 @@ def capture():
     data_tuple = (key, 'Snapshot', datetime.datetime.now())
     insert_table(conn,sqlite_insert_with_param,data_tuple)
 
-    cv2.imwrite('/var/media/frame.jpg', video_frame)
-    requests.post('http://localhost:3000/send/image', data = {'title':'Bird', 'filename':'frame.jpg'})
 
     return jsonify({"success":"true","key":key}) 
 
@@ -132,6 +131,19 @@ def deletesnap():
         conn.commit()
         os.remove("/var/media/{filename}".format(filename= filename))
         return jsonify({"success":"true"}) 
+    except Exception as e:
+        print(e)
+
+@app.route('/api/train', methods=['POST'])
+def train_data():
+    try:
+        print("called train data")
+        id = request.json["id"]
+        filename = request.json["filename"]
+        requests.post('http://localhost:3000/ingest', data = {'filename':filename})
+        return jsonify({"success":"true"}) 
+        
+            
     except Exception as e:
         print(e)
 
@@ -304,10 +316,10 @@ def main():
                     print('', flush=True)
 
                 elif "bounding_boxes" in res["result"].keys():
-                    print('Found %d bounding boxes (%d ms.)' % (len(res["result"]["bounding_boxes"]), res['timing']['dsp'] + res['timing']['classification']))
+                    #print('Found %d bounding boxes (%d ms.)' % (len(res["result"]["bounding_boxes"]), res['timing']['dsp'] + res['timing']['classification']))
                     pred_labels = []
                     for bb in res["result"]["bounding_boxes"]:
-                        print('\t%s (%.2f): x=%d y=%d w=%d h=%d' % (bb['label'], bb['value'], bb['x'], bb['y'], bb['width'], bb['height']))
+                        #print('\t%s (%.2f): x=%d y=%d w=%d h=%d' % (bb['label'], bb['value'], bb['x'], bb['y'], bb['width'], bb['height']))
                         img = cv2.putText(img, "%s %s" %( bb['label'],round(bb['value']*100)),(bb['x']+2, bb['y']+10), cv2.FONT_HERSHEY_SIMPLEX,0.35, (0, 255, 0), 1)
                         img = cv2.rectangle(img, (bb['x'], bb['y']), (bb['x'] + bb['width'], bb['y'] + bb['height']), (0, 255, 0), 1)
                         pred_labels.append({
@@ -320,7 +332,7 @@ def main():
 
                     if len(res["result"]["bounding_boxes"]) > 0 :
                         socketio.emit('ei_event', pred_labels)
-                        if (time.time()-last_sent) > 10 and tg_disable == "N":
+                        if (time.time()-last_sent) > 30 and tg_disable == "N":
                             try:
                                 last_sent = time.time()
                                 cv2.imwrite('/var/media/frame.jpg', img)

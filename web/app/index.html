@@ -639,7 +639,7 @@
                                 <div class="caption">
                                   <h4 class="${item.bird}">${item.bird}</h4>
                                   <h6>${item.ts}</h6>
-                                  <p><a href="#" class="btn btn-success" role="button">Download</a> 
+                                  <p><a onclick="trainSnap(${item.id}, '${item.filename}')"  class="btn btn-success" role="button">Ingest</a> 
                                     <a onclick="deleteSnap(${item.id}, '${item.filename}')" class="btn btn-danger" role="button">Delete</a></p>
                                 </div>
                               </div>
@@ -682,6 +682,17 @@
           
         })
       }
+
+      trainSnap = function(id,filename){
+       
+       
+       $.post( serverUrl+"/api/train",JSON.stringify({id:id,filename:filename}), function(response) {
+         console.log(response);
+         showAlert('Queued successfully!');
+         
+         
+       })
+     }
 
     });
     
