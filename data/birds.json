@@ -2,6 +2,9 @@
     {
         "name":"Bluejay",
         "thumbnail":"https://user-images.githubusercontent.com/9275193/130694437-e4adae2f-07aa-4e55-af6c-9af04053cd60.jpeg",
-        "description":"The Blue Jay bird, which is also known as the Cyanocitta Cristata, is native to eastern North America but also found in different other parts as well. and it belongs to the Corvidae family. They like the woodland environment and they mostly breed in the forests. They have a distinctive blue and white look; the chest of the bird is white while the back and wings are blue."
+        "description":"The Blue Jay bird, which is also known as the Cyanocitta Cristata, is native to eastern North America but also found in different other parts as well. and it belongs to the Corvidae family. They like the woodland environment and they mostly breed in the forests. They have a distinctive blue and white look; the chest of the bird is white while the back and wings are blue.",
+        "habitat":"Southern Canada and throughout the eastern and central United States south to Florida and northeastern Texas.",
+        "diet":"Virtually all known types of plant and animal sources, such as acorns and beech mast, weed seeds, grain, fruits and other berries, peanuts, bread, meat",
+        "reproduction": "The mating season begins in mid-March, peaks in mid-April to May, and extends into July. Any suitable tree or large bush may be used for nesting, though an evergreen is preferred."
     }
 ]
