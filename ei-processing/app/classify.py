@@ -17,18 +17,37 @@ import uuid
 import datetime
 import logging
 import json
-
+import board
+import digitalio
 
 async_mode = None
 runner = None
 show_camera = False
 video_frame = None
 videoCaptureDeviceId = 0
+firstFrame = None
+status_list=[None,None]
 
 sysusername = os.environ['USERNAME']
 syspassword = os.environ['PASSWORD']
-tg_disable  = os.environ['TG_DISABLE']
+
 EI_API_KEY_IMAGE = os.environ['EI_API_KEY_IMAGE']
+ENABLE_MOTION = False
+ENABLE_TG = False
+PIXEL_THRESHOLD = 75000
+
+if 'ENABLE_MOTION' in os.environ and os.environ['ENABLE_MOTION'] == "Y":
+    ENABLE_MOTION = True
+
+if 'ENABLE_TG' in os.environ and os.environ['ENABLE_TG'] == "Y":
+    ENABLE_TG = True
+
+if 'PIXEL_THRESHOLD' in os.environ :
+    PIXEL_THRESHOLD = int(os.environ['PIXEL_THRESHOLD'])
+
+pir_sensor = digitalio.DigitalInOut(board.D4)
+pir_sensor.direction = digitalio.Direction.INPUT
+
 
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
@@ -54,6 +73,11 @@ socketio = SocketIO(app, async_mode=async_mode,cors_allowed_origins="*")
 
 @app.route('/api/capture', methods=['POST'])
 def capture():
+    key = capture_image('Snapshot')
+    return jsonify({"success":"true","key":key}) 
+
+
+def capture_image(caption):
     global video_frame
     print("capture image")  
     key = "{rand}.jpg".format(rand=str(uuid.uuid4()))
@@ -62,12 +86,9 @@ def capture():
                           ('filename','bird', 'ts') 
                           VALUES (?, ?, ?);"""
 
-    data_tuple = (key, 'Snapshot', datetime.datetime.now())
+    data_tuple = (key, caption, datetime.datetime.now())
     insert_table(conn,sqlite_insert_with_param,data_tuple)
-
-
-    return jsonify({"success":"true","key":key}) 
-
+    return key
 
 @app.route('/api/birds', methods=['GET'])
 def learn_birds():
@@ -76,28 +97,20 @@ def learn_birds():
 
 @app.route('/api/tg', methods=['GET'])
 def tg_status():
-    global tg_disable
+    global ENABLE_TG
     data = {
-        "status": tg_disable
+        "status": ENABLE_TG
     }
     return jsonify(data) 
 
 
 @app.route('/api/tg-update', methods=['POST'])
 def tg_status_update():
-    global tg_disable
-    tg_disable = request.json["status"]
-    return jsonify({"status": tg_disable})
+    global ENABLE_TG
+    ENABLE_TG = request.json["status"]
+    return jsonify({"status": ENABLE_TG})
 
-# @app.route('/api/tg/status/<status>', methods=['POST'])
-# def tg_status_update(status):
-#     global tg_disable
-#     if status == "enable":
-#         tg_disable = "N"
-#     else:
-#         tg_disable = "Y"
 
-#     return jsonify({"status": tg_disable})
 
 
 @app.route('/api/snapshots', methods=['GET'])
@@ -259,10 +272,53 @@ def stream(img):
     jpegframedata = "data:image/jpeg;base64,{}".format(jpegframe)
     socketio.emit('stream', jpegframedata)
 
+def check_pir_sensor():
+    global video_frame
+    global firstFrame
+    while True:
+        status=0
+        
+        if video_frame is None:
+            continue
+
+        gray_frame=cv2.cvtColor(video_frame,cv2.COLOR_BGR2GRAY)
+        gray_frame=cv2.GaussianBlur(gray_frame,(25,25),0)
+
+
+        if firstFrame is None:
+            firstFrame = gray_frame
+            continue
+
+        delta=cv2.absdiff(firstFrame,gray_frame)
+        threshold=cv2.threshold(delta, 30, 255, cv2.THRESH_BINARY)[1]
+        (contours,_)=cv2.findContours(threshold,cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        for contour in contours:
+            print(cv2.contourArea(contour))
+            if cv2.contourArea(contour) < PIXEL_THRESHOLD:
+                continue
+		    
+            
+            status=1
+            # (x, y, w, h)=cv2.boundingRect(contour)
+            # cv2.rectangle(video_frame, (x, y), (x+w, y+h), (255,0,0), 1)
+        
+        status_list.append(status)
+        status_list.pop(0)
+        print(status_list)
+	
+        if status_list[-1]==1 and status_list[-2]==0:
+            print("###################   Motion Detected ################")
+            if ENABLE_MOTION == True:
+                capture_image('Motion')
+        
+
+        
+        time.sleep(1)
+
 def main():
     global video_frame
     global videoCaptureDeviceId
-    global tg_disable
+    global ENABLE_TG
     
     model = '/usr/src/app/modelfile.eim'
     last_sent = 0
@@ -299,8 +355,10 @@ def main():
             next_frame = 0 # limit to ~10 fps here
 
             for res, img in runner.classifier(videoCaptureDeviceId):
-                video_frame = img
+                video_frame = img.copy()
                 stream(img)
+
+
 
                 if (next_frame > now()):
                     time.sleep((next_frame - now()) / 1000)
@@ -332,9 +390,10 @@ def main():
 
                     if len(res["result"]["bounding_boxes"]) > 0 :
                         socketio.emit('ei_event', pred_labels)
-                        if (time.time()-last_sent) > 30 and tg_disable == "N":
+                        if (time.time()-last_sent) > 30 and ENABLE_TG == True:
                             try:
                                 last_sent = time.time()
+                                capture_image(pred_labels[0].label)
                                 cv2.imwrite('/var/media/frame.jpg', img)
                                 requests.post('http://localhost:3000/send/image', data = {'title':'Bird', 'filename':'frame.jpg'})
                                 
@@ -347,10 +406,7 @@ def main():
 
                     
 
-                if (show_camera):
-                    cv2.imshow('edgeimpulse', img)
-                    if cv2.waitKey(1) == ord('q'):
-                        break
+                
 
                 next_frame = now() + 100
         finally:
@@ -369,6 +425,12 @@ if __name__ == "__main__":
                                         bird text,
                                         ts timestamp
                                     ); """
+    
+    sql_create_profile_table = """ CREATE TABLE IF NOT EXISTS profile (
+                                        id integer PRIMARY KEY AUTOINCREMENT,
+                                        devicename text NOT NULL
+                                        
+                                    ); """
 
     if conn is not None:
         # create projects table
@@ -379,8 +441,14 @@ if __name__ == "__main__":
     else:
         print("Error! cannot create the database connection.")
 
+    
+
     t = threading.Thread(target=main, args=())
     t.daemon = True
     t.start()
+
+    print("Starting PIR thread")
+    threading.Thread(target=check_pir_sensor,daemon=True).start()
+
     #app.run(host='0.0.0.0', port='8080', debug=False)
     socketio.run(app,host='0.0.0.0', port='8080', debug=False)

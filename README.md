@@ -46,3 +46,6 @@ EI_COLLECT_MODE_IMAGE
 ``` 
 and follow the instructions being laid down in the terminal.
 
+### 3D Print
+Download STL files from here [bird_watcher_3D_print.zip](https://github.com/just4give/balena-ei-linux-bird-watcher/files/7095446/bird_watcher_3dprint.zip)
+

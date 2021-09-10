@@ -16,7 +16,9 @@ data:
       - EI_API_KEY_IMAGE: put_your_EI_api_key
       - TG_CHAT_ID: put_your_telegram_chatbot_id
       - TG_KEY: put_your_telegram_key
-      - TG_DISABLE: Y
+      - ENABLE_TG: N
+      - ENABLE_MOTION: Y
+      - PIXEL_THRESHOLD: 75000
       - USERNAME: birdwatcher
       - PASSWORD: birdwatcher
       
