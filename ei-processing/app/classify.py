@@ -73,6 +73,8 @@ socketio = SocketIO(app, async_mode=async_mode,cors_allowed_origins="*")
 
 @app.route('/api/capture', methods=['POST'])
 def capture():
+    #global firstFrame
+    #firstFrame = None
     key = capture_image('Snapshot')
     return jsonify({"success":"true","key":key}) 
 
@@ -355,8 +357,10 @@ def main():
             next_frame = 0 # limit to ~10 fps here
 
             for res, img in runner.classifier(videoCaptureDeviceId):
+                img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
                 video_frame = img.copy()
-                stream(img)
+                #video_frame = cv2.cvtColor(video_frame, cv2.COLOR_RGB2BGR)
+                stream(video_frame)
 
 
 
@@ -393,7 +397,8 @@ def main():
                         if (time.time()-last_sent) > 30 and ENABLE_TG == True:
                             try:
                                 last_sent = time.time()
-                                capture_image(pred_labels[0].label)
+                                #capture_image(pred_labels[0].label)
+                                capture_image('Bird')
                                 cv2.imwrite('/var/media/frame.jpg', img)
                                 requests.post('http://localhost:3000/send/image', data = {'title':'Bird', 'filename':'frame.jpg'})
                                 
