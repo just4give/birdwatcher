@@ -53,6 +53,14 @@ services:
                 links:
                         - ei-processing
 
+        hostname:
+                image: balenablocks/hostname
+                restart: no                                     # Required to avoid container restarting indefinitely
+                labels:
+                        io.balena.features.supervisor-api: 1    # Required to interact with the supervisor
+                environment:
+                        SET_HOSTNAME: birdwatcher
+
 volumes:
         shared-data:
         shared-media:
