@@ -358,7 +358,8 @@ def main():
 
             for res, img in runner.classifier(videoCaptureDeviceId):
                 img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
-                video_frame = img.copy()
+                video_frame = img
+                #video_frame = img.copy()
                 #video_frame = cv2.cvtColor(video_frame, cv2.COLOR_RGB2BGR)
                 stream(video_frame)
 
@@ -380,13 +381,30 @@ def main():
                 elif "bounding_boxes" in res["result"].keys():
                     #print('Found %d bounding boxes (%d ms.)' % (len(res["result"]["bounding_boxes"]), res['timing']['dsp'] + res['timing']['classification']))
                     pred_labels = []
+                    max_label = ""
+                    max_score = 0
+                    max_bb = None
+
                     for bb in res["result"]["bounding_boxes"]:
+                        if round(bb['value']*100) > max_score:
+                            max_score = round(bb['value']*100)
+                            max_label = bb['label']
+                            max_bb = bb
+                        
                         #print('\t%s (%.2f): x=%d y=%d w=%d h=%d' % (bb['label'], bb['value'], bb['x'], bb['y'], bb['width'], bb['height']))
-                        img = cv2.putText(img, "%s %s" %( bb['label'],round(bb['value']*100)),(bb['x']+2, bb['y']+10), cv2.FONT_HERSHEY_SIMPLEX,0.35, (0, 255, 0), 1)
-                        img = cv2.rectangle(img, (bb['x'], bb['y']), (bb['x'] + bb['width'], bb['y'] + bb['height']), (0, 255, 0), 1)
+                        # img = cv2.putText(img, "%s %s" %( bb['label'],round(bb['value']*100)),(bb['x']+2, bb['y']+10), cv2.FONT_HERSHEY_SIMPLEX,0.35, (0, 255, 0), 1)
+                        # img = cv2.rectangle(img, (bb['x'], bb['y']), (bb['x'] + bb['width'], bb['y'] + bb['height']), (0, 255, 0), 1)
+                        # pred_labels.append({
+                        #     'label': bb['label'],
+                        #     'score': round(bb['value']*100)
+                        # })
+                    
+                    if max_bb is not None:
+                        img = cv2.putText(img, "%s %s" %( max_bb['label'],round(max_bb['value']*100)),(max_bb['x']+2, max_bb['y']+10), cv2.FONT_HERSHEY_SIMPLEX,0.35, (0, 255, 0), 1)
+                        img = cv2.rectangle(img, (max_bb['x'], max_bb['y']), (max_bb['x'] + max_bb['width'], max_bb['y'] + max_bb['height']), (0, 255, 0), 1)
                         pred_labels.append({
-                            'label': bb['label'],
-                            'score': round(bb['value']*100)
+                            'label': max_bb['label'],
+                            'score': round(max_bb['value']*100)
                         })
                     
                     stream(img)
@@ -397,8 +415,8 @@ def main():
                         if (time.time()-last_sent) > 30 and ENABLE_TG == True:
                             try:
                                 last_sent = time.time()
-                                #capture_image(pred_labels[0].label)
-                                capture_image('Bird')
+                                capture_image(max_label)
+                                #capture_image("%s %s%" %( max_label, max_score))
                                 cv2.imwrite('/var/media/frame.jpg', img)
                                 requests.post('http://localhost:3000/send/image', data = {'title':'Bird', 'filename':'frame.jpg'})
                                 
