@@ -79,5 +79,7 @@ ENABLE_TG
 
 <img src="https://user-images.githubusercontent.com/9275193/134372532-acc0f093-4939-49c1-af53-bea9a0a611dd.jpg" width="800" >
 
+<img src="https://user-images.githubusercontent.com/9275193/134414458-c2913182-db20-4f9d-98b5-2b94f0e402fd.jpg" width="800" >
+
 Download STL files from here [bird_watcher_3D_print.zip](https://github.com/just4give/balena-ei-linux-bird-watcher/files/7095446/bird_watcher_3dprint.zip)
 
