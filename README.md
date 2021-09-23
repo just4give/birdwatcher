@@ -3,6 +3,19 @@
 
 This project enables you to run Edge Impulse Linux SDK on balenaOS thus allowing you to manage a fleet of devices with the same software stack on them which can do various kinds of on-device Machine Learning applications. 
 
+
+#### 3D Printed Unit
+
+<img src="https://user-images.githubusercontent.com/9275193/134356486-bf4fd607-67fb-47bb-9bed-d8437b1f1fb0.jpg" width="500" >
+
+
+#### Website on Mobile
+<img src="https://user-images.githubusercontent.com/9275193/134356635-9b320230-f2cd-4b95-b2a2-9ae38bf87aeb.PNG" width="500" >
+
+
+
+
+
 ### Hardware 
 <table>
 <tr><td>
@@ -46,6 +59,27 @@ EI_COLLECT_MODE_IMAGE
 ``` 
 and follow the instructions being laid down in the terminal.
 
-### 3D Print
+### Enable Motion
+
+Sometimes you may need to unknown bird's image and feed to your EI model and retrain. For this, you can enable motion detection by setting the variable to Y
+```
+ENABLE_MOTION
+```
+
+### Enable Motion
+
+If you wish to turn off telegram notification for any reason, you can set below variable to N ( set back to Y if you like to receive notification)
+```
+ENABLE_TG
+```
+
+
+
+### Download 3D models and Print 
+
+<img src="https://user-images.githubusercontent.com/9275193/134372532-acc0f093-4939-49c1-af53-bea9a0a611dd.jpg" width="800" >
+
+<img src="https://user-images.githubusercontent.com/9275193/134414458-c2913182-db20-4f9d-98b5-2b94f0e402fd.jpg" width="800" >
+
 Download STL files from here [bird_watcher_3D_print.zip](https://github.com/just4give/balena-ei-linux-bird-watcher/files/7095446/bird_watcher_3dprint.zip)
 
