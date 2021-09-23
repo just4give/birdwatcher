@@ -627,12 +627,13 @@
       loadSnapshots = function(){
         var html = "";
           snapshots.forEach(item=>{
+                    var dt = new Date(item.ts+"z").toLocaleString();
                     html = html+ `<div class="col-sm-6 col-md-4">
                               <div class="thumbnail">
                                 <img src="/${item.filename}">
                                 <div class="caption">
                                   <h4 class="${item.bird}">${item.bird}</h4>
-                                  <h6>${item.ts}</h6>
+                                  <h6>${dt}</h6>
                                   <p><a onclick="trainSnap(${item.id}, '${item.filename}')"  class="btn btn-success" role="button">Ingest</a> 
                                     <a onclick="deleteSnap(${item.id}, '${item.filename}')" class="btn btn-danger" role="button">Delete</a></p>
                                 </div>

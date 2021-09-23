@@ -399,23 +399,24 @@ def main():
                         #     'score': round(bb['value']*100)
                         # })
                     
-                    if max_bb is not None:
+                    if max_bb is not None and max_score > 90 :
                         img = cv2.putText(img, "%s %s" %( max_bb['label'],round(max_bb['value']*100)),(max_bb['x']+2, max_bb['y']+10), cv2.FONT_HERSHEY_SIMPLEX,0.35, (0, 255, 0), 1)
                         img = cv2.rectangle(img, (max_bb['x'], max_bb['y']), (max_bb['x'] + max_bb['width'], max_bb['y'] + max_bb['height']), (0, 255, 0), 1)
                         pred_labels.append({
                             'label': max_bb['label'],
                             'score': round(max_bb['value']*100)
                         })
-                    
+                        socketio.emit('ei_event', pred_labels)
+                        capture_image(max_label)
                     stream(img)
                     
 
                     if len(res["result"]["bounding_boxes"]) > 0 :
-                        socketio.emit('ei_event', pred_labels)
-                        if (time.time()-last_sent) > 30 and ENABLE_TG == True:
+                        
+                        if (time.time()-last_sent) > 30 and ENABLE_TG == True and max_score > 90:
                             try:
                                 last_sent = time.time()
-                                capture_image(max_label)
+                                
                                 #capture_image("%s %s%" %( max_label, max_score))
                                 cv2.imwrite('/var/media/frame.jpg', img)
                                 requests.post('http://localhost:3000/send/image', data = {'title':'Bird', 'filename':'frame.jpg'})
