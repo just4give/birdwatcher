@@ -28,7 +28,7 @@ This project enables you to run Edge Impulse Linux SDK on balenaOS thus allowing
 
 #### Website on Mobile
 <p align="center">
-<img src="https://user-images.githubusercontent.com/9275193/134356635-9b320230-f2cd-4b95-b2a2-9ae38bf87aeb.PNG" width="500" >
+<img src="https://user-images.githubusercontent.com/9275193/134734915-27e99886-0748-434d-9694-0afe917716d0.png" width="500" >
 </p>
 
 
