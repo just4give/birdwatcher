@@ -24,10 +24,10 @@
 
 
 
-  <title>Bird Watcher 2.0</title>
+  <title>Bird Watcher</title>
   <style>
     body {
-      background-color: #cddc39;
+      background-color: white;
     }
 
     .title {
@@ -295,7 +295,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand title" href="#">Bird Watcher 2.0
+          <a class="navbar-brand title" href="#">Bird Watcher
             <img src="./assets/logo.png">
           </a>
         </div>
@@ -308,8 +308,8 @@
             <li id="home-button" class="active"><a><i class="fa fa-home" aria-hidden="true"></i> Home</li></a>
             <li id="gallery-button"><a ><i class="fa fa-bars" aria-hidden="true"></i> Snaps</li></a>
             <li id="settings-button"><a ><i class="fa fa-cogs" aria-hidden="true"></i> Settings</li></a>
-            <li id="notif-button"><a><i class="fa fa-bell" aria-hidden="true"></i> Activity</li></a>
-            <li id="birds-button"><a><i class="fa fa-twitter" aria-hidden="true"></i> Learn</li></a>
+            <!--<li id="notif-button"><a><i class="fa fa-bell" aria-hidden="true"></i> Activity</li></a>-->
+            <!--<li id="birds-button"><a><i class="fa fa-twitter" aria-hidden="true"></i> Learn</li></a>-->
             
           </ul>
           
@@ -634,7 +634,7 @@
                                 <div class="caption">
                                   <h4 class="${item.bird}">${item.bird}</h4>
                                   <h6>${dt}</h6>
-                                  <p><a onclick="trainSnap(${item.id}, '${item.filename}')"  class="btn btn-success" role="button">Ingest</a> 
+                                  <p><a onclick="trainSnap(${item.id}, '${item.filename}')"  class="btn btn-success" role="button">Train Edge Impulse</a> 
                                     <a onclick="deleteSnap(${item.id}, '${item.filename}')" class="btn btn-danger" role="button">Delete</a></p>
                                 </div>
                               </div>
@@ -683,7 +683,7 @@
        
        $.post( serverUrl+"/api/train",JSON.stringify({id:id,filename:filename}), function(response) {
          console.log(response);
-         showAlert('Queued successfully!');
+         showAlert('Added to Edge Impulse Data Collection successfully!');
          
          
        })
