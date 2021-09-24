@@ -5,14 +5,14 @@ This project enables you to run Edge Impulse Linux SDK on balenaOS thus allowing
 
 ### To-Do List
 
--[] hostname: confirm that http://birdwatcher.local works if you are on the same network than the Bird Watcher.
--[] Home: List birds watched nearby the real-time picture. IDEA: list (with text) of birds spotted with the date and link to Snaps?
--[] Snaps: check title of Snaps (I see `motion` instead of the bird name)
--[] Snaps: pictures of watched to train the ML shouldn't have the circle around them.
--[] Settings: Add GPS of the Bird Watcher.
--[] Settings: Add the possibility to add Telegram information.
--[] Settings: Add the possibility to change password of the UI.
--[] Public Website: Use balenaHub as public website? or build our own public website with a domain?
+- [ ] hostname: confirm that http://birdwatcher.local works if you are on the same network than the Bird Watcher.
+- [ ] Home: List birds watched nearby the real-time picture. IDEA: list (with text) of birds spotted with the date and link to Snaps?
+- [ ] Snaps: check title of Snaps (I see `motion` instead of the bird name)
+- [ ] Snaps: pictures of watched to train the ML shouldn't have the circle around them.
+- [ ] Settings: Add GPS of the Bird Watcher.
+- [ ] Settings: Add the possibility to add Telegram information.
+- [ ] Settings: Add the possibility to change password of the UI.
+- [ ] Public Website: Use balenaHub as public website? or build our own public website with a domain?
 
 
 #### 3D Printed Unit
