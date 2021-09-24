@@ -3,6 +3,10 @@
 
 This project enables you to run Edge Impulse Linux SDK on balenaOS thus allowing you to manage a fleet of devices with the same software stack on them which can do various kinds of on-device Machine Learning applications. 
 
+<p align="center">
+  <kbd><img src="https://user-images.githubusercontent.com/9275193/134690393-81401c86-6e13-40c9-9670-c55f286e6979.gif" border="1px solid red"></kbd>
+</p>
+
 ### To-Do List
 
 - [ ] hostname: confirm that http://birdwatcher.local works if you are on the same network than the Bird Watcher.
