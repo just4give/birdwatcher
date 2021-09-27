@@ -76,19 +76,20 @@ def capture():
     #global firstFrame
     #firstFrame = None
     key = capture_image('Snapshot')
+    #requests.post('http://localhost:3000/send/image', data = {'title':'Snapshot', 'filename':key})
     return jsonify({"success":"true","key":key}) 
 
 
 def capture_image(caption):
     global video_frame
-    print("capture image")  
+    print("capturing ", caption)  
     key = "{rand}.jpg".format(rand=str(uuid.uuid4()))
     cv2.imwrite("/var/media/{key}".format(key=key), video_frame)
     sqlite_insert_with_param = """INSERT INTO 'snapshots'
                           ('filename','bird', 'ts') 
                           VALUES (?, ?, ?);"""
 
-    data_tuple = (key, caption, datetime.datetime.now())
+    data_tuple = (key, caption, datetime.datetime.utcnow())
     insert_table(conn,sqlite_insert_with_param,data_tuple)
     return key
 
@@ -119,7 +120,7 @@ def tg_status_update():
 def snapshots():
     try:
         c = conn.cursor()
-        c.execute("select * from snapshots order by date(ts) DESC")
+        c.execute('select id, filename, bird, ts as "ts [timestamp]"  from snapshots order by date(ts) DESC LIMIT 20')
         rows = c.fetchall()
         data = []
         for row in rows:
@@ -127,7 +128,7 @@ def snapshots():
                 'id': row[0],
                 'filename':row[1],
                 'bird':row[2],
-                'ts':row[3]
+                'ts': row[3]
             }
             data.append(item)
 
@@ -144,7 +145,36 @@ def deletesnap():
         c = conn.cursor()
         c.execute("delete from snapshots WHERE id=?",(id,))
         conn.commit()
-        os.remove("/var/media/{filename}".format(filename= filename))
+
+        if os.path.exists("/var/media/{filename}".format(filename= filename)):
+            os.remove("/var/media/{filename}".format(filename= filename))
+        if os.path.exists("/var/media/{filename}.ei.jpg".format(filename= filename)):
+            os.remove("/var/media/{filename}.ei.jpg".format(filename= filename))
+
+        return jsonify({"success":"true"}) 
+    except Exception as e:
+        print(e)
+
+@app.route('/api/delete-all-snap', methods=['POST'])
+def deleteallsnap():
+    try:
+        print("called delete all" )
+        c = conn.cursor()
+        c.execute('select id, filename, bird, ts as "ts [timestamp]"  from snapshots order by date(ts) ASC LIMIT 50')
+        rows = c.fetchall()
+        
+        for row in rows:
+            id = row[0]
+            filename = row[1]
+            if os.path.exists("/var/media/{filename}".format(filename= filename)):
+                os.remove("/var/media/{filename}".format(filename= filename))
+            if os.path.exists("/var/media/{filename}.ei.jpg".format(filename= filename)):
+                os.remove("/var/media/{filename}.ei.jpg".format(filename= filename))
+            
+            c.execute("delete from snapshots WHERE id=?",(id,))
+            conn.commit()
+            
+
         return jsonify({"success":"true"}) 
     except Exception as e:
         print(e)
@@ -152,10 +182,19 @@ def deletesnap():
 @app.route('/api/train', methods=['POST'])
 def train_data():
     try:
-        print("called train data")
+        
         id = request.json["id"]
+        caption = request.json["caption"]
         filename = request.json["filename"]
-        requests.post('http://localhost:3000/ingest', data = {'filename':filename})
+        key = None
+
+        if caption == 'snapshot' or caption == 'motion':
+            key = "{filename}".format(filename=filename)
+        else:
+            key = "{filename}.ei.jpg".format(filename=filename)
+        
+        print("called train data for key ", key) 
+        requests.post('http://localhost:3000/ingest', data = {'filename':key})
         return jsonify({"success":"true"}) 
         
             
@@ -295,7 +334,7 @@ def check_pir_sensor():
         threshold=cv2.threshold(delta, 30, 255, cv2.THRESH_BINARY)[1]
         (contours,_)=cv2.findContours(threshold,cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         for contour in contours:
-            print(cv2.contourArea(contour))
+            #print(cv2.contourArea(contour))
             if cv2.contourArea(contour) < PIXEL_THRESHOLD:
                 continue
 		    
@@ -306,7 +345,7 @@ def check_pir_sensor():
         
         status_list.append(status)
         status_list.pop(0)
-        print(status_list)
+        #print(status_list)
 	
         if status_list[-1]==1 and status_list[-2]==0:
             print("###################   Motion Detected ################")
@@ -384,6 +423,7 @@ def main():
                     max_label = ""
                     max_score = 0
                     max_bb = None
+                    key = None
 
                     for bb in res["result"]["bounding_boxes"]:
                         if round(bb['value']*100) > max_score:
@@ -400,6 +440,7 @@ def main():
                         # })
                     
                     if max_bb is not None and max_score > 90 :
+                        duplicate = img.copy()
                         img = cv2.putText(img, "%s %s" %( max_bb['label'],round(max_bb['value']*100)),(max_bb['x']+2, max_bb['y']+10), cv2.FONT_HERSHEY_SIMPLEX,0.35, (0, 255, 0), 1)
                         img = cv2.rectangle(img, (max_bb['x'], max_bb['y']), (max_bb['x'] + max_bb['width'], max_bb['y'] + max_bb['height']), (0, 255, 0), 1)
                         pred_labels.append({
@@ -407,7 +448,8 @@ def main():
                             'score': round(max_bb['value']*100)
                         })
                         socketio.emit('ei_event', pred_labels)
-                        capture_image(max_label)
+                        key = capture_image(max_label)
+                        cv2.imwrite("/var/media/{key}.ei.jpg".format(key=key), duplicate)
                     stream(img)
                     
 
@@ -416,10 +458,10 @@ def main():
                         if (time.time()-last_sent) > 30 and ENABLE_TG == True and max_score > 90:
                             try:
                                 last_sent = time.time()
-                                
-                                #capture_image("%s %s%" %( max_label, max_score))
-                                cv2.imwrite('/var/media/frame.jpg', img)
-                                requests.post('http://localhost:3000/send/image', data = {'title':'Bird', 'filename':'frame.jpg'})
+                                #image_title = "{max_label} [{max_score}]".format(max_label=max_label,max_score =max_score)
+                                #capture_image(image_title)
+                                #cv2.imwrite('/var/media/frame.jpg', img)
+                                requests.post('http://localhost:3000/send/image', data = {'title':max_label, 'filename':key})
                                 
                                 
                             except Exception as e:

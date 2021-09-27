@@ -364,7 +364,7 @@
         </div>
         
         <div class="col-xs-4" style="margin-top: 10px;">
-          <h6>V 2.0.0</h6>
+          <h6>V 0.0.2</h6>
         </div>
         
         
@@ -374,6 +374,12 @@
 </div>
 
 <div id="gallery-page">
+  <p>
+   <a onclick="deleteAllSnap()" class="btn btn-danger" role="button">Delete Last 20</a>
+  </p>
+  <p>
+    <h4 id="gallery-count"></h4>
+  </p>
   <div class="row" id="gallery-view">
     
   </div>
@@ -634,13 +640,14 @@
                                 <div class="caption">
                                   <h4 class="${item.bird}">${item.bird}</h4>
                                   <h6>${dt}</h6>
-                                  <p><a onclick="trainSnap(${item.id}, '${item.filename}')"  class="btn btn-success" role="button">Train Edge Impulse</a> 
+                                  <p><a onclick="trainSnap(${item.id}, '${item.filename}','${item.bird}')"  class="btn btn-success" role="button">Train Edge Impulse</a> 
                                     <a onclick="deleteSnap(${item.id}, '${item.filename}')" class="btn btn-danger" role="button">Delete</a></p>
                                 </div>
                               </div>
                             </div>`
           });
           $("#gallery-view").html(html);
+          $("#gallery-count").html(`${snapshots.length} images`);
       }
 
       loadBirds = function(){
@@ -678,10 +685,23 @@
         })
       }
 
-      trainSnap = function(id,filename){
+      deleteAllSnap = function(){
+        $.post( serverUrl+"/api/delete-all-snap",JSON.stringify({}), function(response) {
+          showAlert('Gallery cleared successfully!');
+          
+          $.get( serverUrl+"/api/snapshots", function(data) {
+            snapshots = data;
+            loadSnapshots();
+          
+          })
+          
+        })
+      }
+
+      trainSnap = function(id,filename, caption){
        
        
-       $.post( serverUrl+"/api/train",JSON.stringify({id:id,filename:filename}), function(response) {
+       $.post( serverUrl+"/api/train",JSON.stringify({id:id,filename:filename, caption: caption}), function(response) {
          console.log(response);
          showAlert('Added to Edge Impulse Data Collection successfully!');
          
