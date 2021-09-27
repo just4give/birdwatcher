@@ -12,13 +12,13 @@ This project enables you to run Edge Impulse Linux SDK on balenaOS thus allowing
 - [X] hostname: confirm that http://birdwatcher.local works if you are on the same network than the Bird Watcher.
 - [ ] Home: List birds watched nearby the real-time picture. IDEA: list (with text) of birds spotted with the date and link to Snaps?
 - [ ] Snaps: check title of Snaps (I see `motion` instead of the bird name)
-- [ ] Snaps: pictures of watched to train the ML shouldn't have the box with the name of the bird. Solution: store picture with no box and with box. We will show on Snaps the picture with box and send to Edge Impulse the picture without box.
+- [X] Snaps: pictures of watched to train the ML shouldn't have the box with the name of the bird. Solution: store picture with no box and with box. We will show on Snaps the picture with box and send to Edge Impulse the picture without box.
 - [ ] Settings: Add GPS (lat and lon form) of the Bird Watcher.
 - [ ] Settings: Add the possibility to add Telegram information.
 - [ ] Settings: Add the possibility to make the Bird Watcher public or private.
 - [ ] Settings: Add the possibility to change password of the UI.
 - [ ] Make a cron to get Device Variables from the balenaCloud fleet and create a markdown file on github with the list of Bird Watchers (location + telegram link).
-- [ ] Telegram: check about group bots to add more people on the channel.
+- [X] Telegram: check about group bots to add more people on the channel.
 
 
 #### 3D Printed Unit
