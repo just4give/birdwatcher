@@ -5,11 +5,11 @@ assets:
   repository:
     type: "blob.asset"
     data:
-      url: "https://github.com/just4give/balena-ei-linux-bird-watcher"
+      url: "https://github.com/just4give/birdwatcher"
   logo:
     type: "blob.asset"
     data:
-      url: "https://raw.githubusercontent.com/just4give/balena-ei-linux-bird-watcher/master/logo.png"
+      url: "https://raw.githubusercontent.com/just4give/birdwatcher/master/logo.png"
 data:
     applicationEnvironmentVariables:
       - EI_COLLECT_MODE_IMAGE: 0
