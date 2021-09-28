@@ -120,7 +120,7 @@ def tg_status_update():
 def snapshots():
     try:
         c = conn.cursor()
-        c.execute('select id, filename, bird, ts as "ts [timestamp]"  from snapshots order by date(ts) DESC LIMIT 20')
+        c.execute('select id, filename, bird, ts as "ts [timestamp]"  from snapshots order by datetime(ts) DESC LIMIT 500')
         rows = c.fetchall()
         data = []
         for row in rows:
