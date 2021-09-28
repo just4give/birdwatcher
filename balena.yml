@@ -12,7 +12,7 @@ assets:
       url: "https://raw.githubusercontent.com/just4give/birdwatcher/master/logo.png"
 data:
     applicationEnvironmentVariables:
-      - EI_COLLECT_MODE_IMAGE: 0
+      - EI_COLLECT_MODE_IMAGE: N
       - EI_API_KEY_IMAGE: put_your_EI_api_key
       - TG_CHAT_ID: put_your_telegram_chatbot_id
       - TG_KEY: put_your_telegram_key
