@@ -102,12 +102,18 @@
       line-height: 60px;
 
       background-color: #000000;
-      overflow: hidden;
+      /* overflow: hidden; */
     }
+    .sticky-top {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 1020;
+}
 
     .footer ul {
       list-style: none;
-      overflow: hidden;
+      /* overflow: hidden; */
       color: white;
       text-align: center;
       padding: 0px;
@@ -265,12 +271,12 @@
     }
 
     #gallery-page .thumbnail{
-      border: 1px solid black;
-      background-color: black;
+      border: 1px solid #e9e9e9;
+      background-color: #e9e9e9;
     }
 
     #gallery-page .thumbnail .caption{
-      color: white;
+      color: #6c6868;
     }
     #gallery-page .thumbnail .NA{
       display: none
@@ -283,7 +289,7 @@
 </head>
 
 <body>
-  <div class="header">
+  <header class="sticky-top">
     
     <nav class="navbar navbar-inverse navbar-dark">
       <div class="container-fluid">
@@ -317,7 +323,7 @@
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
     </nav>
-  </div>
+  </header>
   <div id="alert" class="alert alert-success" role="alert"></div>
   <div id="login-page">
     <table class="login-table" id="login-table">
@@ -374,12 +380,21 @@
 </div>
 
 <div id="gallery-page">
-  <p>
-   <a onclick="deleteAllSnap()" class="btn btn-danger" role="button">Delete Last 20</a>
-  </p>
-  <p>
-    <h4 id="gallery-count"></h4>
-  </p>
+  <div class="row">
+    <div class="col-xs-6">
+      <p>
+        <h4 id="gallery-count"></h4>
+      </p>
+      
+    </div>
+    <div class="col-xs-6 text-right">
+      <p>
+        <a onclick="deleteAllSnap()" class="btn btn-danger" role="button">Delete Last 20</a>
+       </p>
+    </div>
+  </div>
+  
+  
   <div class="row" id="gallery-view">
     
   </div>

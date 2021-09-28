@@ -447,6 +447,7 @@ def main():
                             'label': max_bb['label'],
                             'score': round(max_bb['value']*100)
                         })
+                        print("EI defected object")
                         socketio.emit('ei_event', pred_labels)
                         key = capture_image(max_label)
                         cv2.imwrite("/var/media/{key}.ei.jpg".format(key=key), duplicate)
