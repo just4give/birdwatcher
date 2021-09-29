@@ -19,6 +19,8 @@ This project enables you to run Edge Impulse Linux SDK on balenaOS thus allowing
 - [ ] Settings: Add the possibility to change password of the UI.
 - [ ] Make a cron to get Device Variables from the balenaCloud fleet and create a markdown file on github with the list of Bird Watchers (location + telegram link).
 - [X] Telegram: check about group bots to add more people on the channel.
+- [ ] Migrate Vanila JS Web App to React or Svelte 
+- [ ] Build Project/Product Website to provide detail information on features, DIY feeder, community and device map.
 
 
 #### 3D Printed Unit
