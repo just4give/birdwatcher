@@ -71,7 +71,7 @@ $ balena push birdwatcher
 
 ### Data Collection Mode
 
-Set the variable to 1 which will bring the application to data collection mode. 
+Set the variable to Y which will bring the application to data collection mode. 
 ```
 EI_COLLECT_MODE_IMAGE
 ``` 
