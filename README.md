@@ -63,10 +63,10 @@ Click on the *deploy-with-balena* button as given below, which will help you to 
 
 Else you can build your own release by cloning this repo on your primary machine (x86) and use the following commands :
 ```
-$ git clone https://github.com/just4give/balena-ei-linux-bird-watcher.git
-$ cd balena-ei-linux-bird-watcher
+$ git clone https://github.com/just4give/birdwatcher.git
+$ cd birdwatcher
 $ balena login
-$ balena push balena-ei-linux-bird-watcher 
+$ balena push birdwatcher 
 ```
 
 ### Data Collection Mode
