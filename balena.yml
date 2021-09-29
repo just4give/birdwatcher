@@ -1,4 +1,4 @@
-name: "balena-ei-linux-bird-watcher"
+name: "birdwatcher"
 type: "sw.application"
 description: "This project enables you to run Edge Impulse Linux SDK on balenaOS to detect birds"
 assets:
