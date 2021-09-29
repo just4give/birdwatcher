@@ -84,7 +84,7 @@ Sometimes you may need to unknown bird's image and feed to your EI model and ret
 ENABLE_MOTION
 ```
 
-### Enable Motion
+### Enable Telegram
 
 If you wish to turn off telegram notification for any reason, you can set below variable to N ( set back to Y if you like to receive notification)
 ```
