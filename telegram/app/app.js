@@ -7,7 +7,7 @@ const eisdk = require('./ei_sdk');
 const TG_TOKEN =  process.env.TG_TOKEN ||''; 
 const TG_CHAT_ID = process.env.TG_CHAT_ID ||'';
 const bot = new TelegramBot({token: TG_TOKEN}); 
-
+const ENABLE_MOTION = process.env.ENABLE_MOTION ||'';
 const EI_API_KEY_IMAGE = process.env.EI_API_KEY_IMAGE ||'';
 const LATITUDE = process.env.LATITUDE ||'';
 const LONGITUDE = process.env.LONGITUDE ||'';
@@ -143,6 +143,43 @@ app.post('/settings/update-telegram-keys', async (req, res)=>{
 
 });
 
+app.get('/settings/update-credentials', async (req, res)=>{
+
+    res.json({success: true, "USERNAME":USERNAME, "PASSWORD":PASSWORD});
+});
+
+app.post('/settings/update-credentials', async (req, res)=>{
+    console.log("Update credentials ", req.body);
+
+	try {
+
+        if (req.body.user != USERNAME){
+            await sdk.models.device.envVar.set(
+                process.env.BALENA_DEVICE_UUID,
+                "USERNAME",
+                req.body.user
+            );
+            console.log("Username updated!");
+        }
+		
+        if (req.body.pass != PASSWORD){
+            await sdk.models.device.envVar.set(
+                process.env.BALENA_DEVICE_UUID,
+                "PASSWORD",
+                req.body.pass
+            );
+            console.log("Password updated!");
+        }
+
+	} catch (error) {
+		console.log("error", error);
+	}
+
+    //res.json({success: true});
+    res.sendStatus(200);
+
+});
+
 
 app.get('/settings/update-geo', async (req, res)=>{
 
@@ -180,6 +217,35 @@ app.post('/settings/update-geo', async (req, res)=>{
     res.sendStatus(200);
 
 });
+
+
+app.get('/settings/update-motion', async (req, res)=>{
+
+    res.json({success: true, "MOTION":ENABLE_MOTION});
+});
+
+app.post('/settings/update-motion', async (req, res)=>{
+    console.log("Update Motion ", req.body);
+
+	try {
+        if (req.body.mot != ENABLE_MOTION){
+            await sdk.models.device.envVar.set(
+                process.env.BALENA_DEVICE_UUID,
+                "ENABLE_MOTION",
+                req.body.mot
+            );
+            console.log("MOTION updated!");
+        }
+
+	} catch (error) {
+		console.log("error", error);
+	}
+
+    //res.json({success: true});
+    res.sendStatus(200);
+
+});
+
 
 
 
