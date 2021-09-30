@@ -27,6 +27,7 @@ services:
                 labels:
                         io.balena.features.dbus: '1'
                         io.balena.features.kernel-modules: '1'
+                        io.balena.features.supervisor-api: '1'
                 volumes: 
                         - 'shared-data:/var/data'
                         - 'shared-media:/var/media'
@@ -43,6 +44,7 @@ services:
                 labels:
                         io.balena.features.dbus: '1'
                         io.balena.features.kernel-modules: '1'
+                        io.balena.features.supervisor-api: '1'
                 ports: 
                         - 80
                 depends_on:

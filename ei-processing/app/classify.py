@@ -31,10 +31,16 @@ status_list=[None,None]
 sysusername = os.environ['USERNAME']
 syspassword = os.environ['PASSWORD']
 
-EI_API_KEY_IMAGE = os.environ['EI_API_KEY_IMAGE']
+EI_API_KEY_IMAGE = os.getenv('EI_API_KEY_IMAGE')
+EI_PROJECT_ID = os.getenv('EI_PROJECT_ID')
+EI_COLLECT_MODE_IMAGE = os.getenv('EI_COLLECT_MODE_IMAGE')
+
 ENABLE_MOTION = False
-ENABLE_TG = False
 PIXEL_THRESHOLD = 75000
+
+ENABLE_TG = False
+TG_CHAT_ID = os.getenv('TG_CHAT_ID')
+TG_KEY = os.getenv('TG_KEY')
 
 if 'ENABLE_MOTION' in os.environ and os.environ['ENABLE_MOTION'] == "Y":
     ENABLE_MOTION = True
@@ -200,6 +206,18 @@ def train_data():
             
     except Exception as e:
         print(e)
+
+@app.route('/api/update-ei-keys', methods=['POST'])
+def update_ei_keys():
+    try:
+        
+        ei_api_key = request.json["ei_api_key"]
+        ei_project_id = request.json["ei_project_id"]
+
+        return jsonify({"success":"true"}) 
+ 
+    except Exception as e:
+        print('Exception:' + e)
 
 @socketio.on('connect')
 def socket_connect():
@@ -468,12 +486,6 @@ def main():
                             except Exception as e:
                                 print(e) 
 
-
-                        
-
-                    
-
-                
 
                 next_frame = now() + 100
         finally:

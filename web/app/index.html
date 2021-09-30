@@ -147,7 +147,12 @@
       margin-bottom: 10px;
     }
 
-
+    input[type=text] {
+      padding:10px;
+      margin:10px 0;
+      box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
+      border-radius:10px;
+    }
 
     .birds-table input[type="text"],
     input[type="password"] {
@@ -406,10 +411,26 @@
     <p>Telegram Notification</p>
     <button id="tg-btn">Enable</button>
   </div>
+  
   <div>
-    <button id="logout" style="margin-top: 20px;">LOGOUT</button>
+    <div class="row">
+      <p>Edge Impulse API Keys</p>
+      <input type="text" id="ei-api-key" placeholder="Edge Impulse API Key">
+      <input type="text" id="ei-project-id" placeholder="Edge Impulse Project ID">
+    </div>
+    <div>
+      <button id="ei-update" style="margin-top: 20px;">Update ML model</button>
+    </div>
   </div>
+
+  <div>
+    <P><button id="logout" style="margin-top: 20px;">LOGOUT</button></P>
+  </div>
+
+
 </div>
+
+
 <div id="birds-page">
   <table class="birds-table" style="margin-bottom: 10px;">
     <tr>
@@ -421,7 +442,6 @@
       </td>
     </tr>
     
-
   </table>
   <div class="row" id="birds-view">
     
@@ -459,7 +479,8 @@
       $.ajaxSetup({
         headers:{
             'Content-Type': "application/json",
-            'contentType': "application/json; charset=utf-8"
+            'contentType': "application/json; charset=utf-8",
+            'Access-Control-Allow-Origin': "*"
         }
       });
 
@@ -494,6 +515,20 @@
           connectToSocket(token);
           $("#login-page").hide();
           $("#home-page").show();
+
+      });
+
+      $("#ei-update").click(()=>{
+
+        console.log("Edge Impulse credentials update!")
+
+        var ei_api_key = $("#ei-api-key").val();
+        var ei_project_id = $("#ei-project-id").val();
+        
+        $.post( "http://localhost:8080/api/update-ei-keys",JSON.stringify({ei_project_id: ei_project_id, ei_api_key: ei_api_key}), function(response) {
+         console.log(response);
+         showAlert('Updating Edge Impulse credentials!');
+       })
 
       });
 
@@ -692,7 +727,8 @@
       }
 
       deleteSnap = function(id,filename){
-       
+       console.log("Deleting snap")
+
         var index = snapshots.findIndex(m=> m.id == id);
         
         $.post( serverUrl+"/api/delete-snap",JSON.stringify({id:id,filename:filename}), function(response) {
@@ -718,12 +754,9 @@
       }
 
       trainSnap = function(id,filename, caption){
-       
-       
        $.post( serverUrl+"/api/train",JSON.stringify({id:id,filename:filename, caption: caption}), function(response) {
          console.log(response);
          showAlert('Added to Edge Impulse Data Collection successfully!');
-         
          
        })
      }
@@ -736,6 +769,8 @@
       }
     }
     function connectToSocket(token){
+      console.log(serverUrl)
+
       socket = io.connect(serverUrl,{query:{token:token}});
       
       socket.on( 'ei_event', function(predictions) {

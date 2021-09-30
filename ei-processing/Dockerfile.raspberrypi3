@@ -1,0 +1,64 @@
+FROM balenalib/raspberrypi3-debian-node:12
+#FROM balenalib/%%BALENA_MACHINE_NAME%%-debian-node:12
+# Install dependencies
+RUN apt-get update && \
+    apt-get install -yq \
+    gcc g++ make build-essential \
+    wget \
+    git \
+    python3 \
+    python3-dev \
+    python3-pip \
+    python3-setuptools \
+    libatlas-base-dev  libportaudio2 libportaudiocpp0 portaudio19-dev \
+    gstreamer-1.0 \
+    pkg-config glib2.0-dev libexpat1-dev v4l-utils libjpeg62-turbo-dev \
+    sox gstreamer1.0-tools gstreamer1.0-plugins-good gstreamer1.0-plugins-base gstreamer1.0-plugins-base-apps \
+    libopencv-dev \
+    libavdevice-dev \
+    libavfilter-dev \
+    libavcodec-dev \
+    libopus-dev \
+    libvpx-dev \
+    libsrtp2-dev \
+    libatlas3-base \
+    libatlas-base-dev \
+    libavformat-dev \
+    libswscale-dev \
+    libqtgui4 \
+    libqt4-test \
+    libavdevice-dev \
+    libavfilter-dev \
+    libavcodec-dev \
+    python3-six \
+  && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+
+# Compile libvips
+RUN cd /tmp && \
+    wget https://github.com/libvips/libvips/releases/download/v8.10.5/vips-8.10.5.tar.gz && \
+    tar xf vips-8.10.5.tar.gz && \
+    cd vips-8.10.5 && \
+    ./configure && \
+    make -j && \
+    sudo make install && \
+    sudo ldconfig
+
+RUN npm config set user root && sudo npm install edge-impulse-linux -g
+
+RUN pip3 install --upgrade pip 
+RUN pip3 install numpy opencv-python requests imutils
+RUN pip3 install edge_impulse_linux -i https://pypi.python.org/simple
+RUN pip3 install Flask flask-socketio==4.3.2 flask_cors flask_basicauth
+RUN pip3 install RPi.Gpio adafruit-blinka 
+
+WORKDIR /usr/src/app
+
+EXPOSE 8080
+
+COPY ./app/ /usr/src/app/
+
+
+CMD ["/usr/src/app/ei_run.sh"]
+
+
