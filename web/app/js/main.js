@@ -3,6 +3,8 @@
  $(document).ready(function () {
    console.log('DOM is ready');
 
+   
+
    var socket;
    
    var snapshots = [];
@@ -30,40 +32,10 @@
    {
      $("#login-page").show();
      $("#home-page").hide();
+
    }
 
-   $("#settings-page").hide();
-   $("#gallery-page").hide();
-   $("#alert").hide();
-   $("#birds-page").hide();
-   
-   
 
-   $("#login").click(()=>{
-       
-       var username = $("#username").val();
-       var password = $("#password").val();
-       token = window.btoa(username+':'+password);
-       
-       localStorage.setItem("token",token);
-       //document.querySelector('#video').src = '/video_feed?token=' + token;
-       connectToSocket(token);
-       $("#login-page").hide();
-       $("#home-page").show();
-
-   });
-
-  
-
-   $("#logout").click(()=>{
-     $("#login-page").show();
-     $("#settings-page").hide();
-     localStorage.removeItem("token");
-     token = undefined;
-     disconnectSocket();
-     $("#home-button").addClass('active');
-     $("#settings-button").removeClass('active');
-   })
 
    $("#reboot").click(()=>{
       console.log("Reboot clicked!");
@@ -71,18 +43,20 @@
 
    $("#capture").click(()=>{
 
+
      $.post( "/api/capture",{}, function(response) {
        
        showAlert('Image captured successfully!');
        
      })
 
-   })
+
 
    //tab buttons
    
 
    $("#settings-button").click(()=>{
+     disconnectSocket();
      $("#settings-button").addClass('active');
      $("#home-button").removeClass('active');
      $("#gallery-button").removeClass('active');
@@ -118,6 +92,7 @@
         $("#tg-token").attr('value', response.TG_TOKEN);
       }
     });
+
 
 
     $.get(serverUrl+"/settings/update-credentials", function (response){
@@ -245,10 +220,14 @@
      $("#notif-button").removeClass('active');
      $("#birds-button").removeClass('active');
 
+
      if(token){
-       $("#home-page").show();
+        $("#app").empty();
+        $("#app").load("home.html"); 
+        connectToSocket(token);
      }else{
-       $("#login-page").show();
+        $("#app").empty();
+        $("#app").load("login.html"); 
      }
      
      $("#settings-page").hide();
@@ -257,16 +236,15 @@
    })
 
    $("#gallery-button").click(()=>{
+     disconnectSocket();
      $("#settings-button").removeClass('active');
      $("#home-button").removeClass('active');
      $("#gallery-button").addClass('active');
      $("#notif-button").removeClass('active');
      $("#birds-button").removeClass('active');
 
-     $("#home-page").hide();
-     $("#settings-page").hide();
-     $("#gallery-page").show();
-     $("#birds-page").hide();
+     $("#app").empty();
+     $("#app").load("snapshots.html"); 
      
      
      $.get( serverUrl+"/api/snapshots", function(data) {
@@ -279,41 +257,7 @@
 
    })
 
-   $("#birds-button").click(()=>{
-     $("#settings-button").removeClass('active');
-     $("#home-button").removeClass('active');
-     $("#gallery-button").removeClass('active');
-     $("#notif-button").removeClass('active');
-     $("#birds-button").addClass('active');
-     $("#home-page").hide();
-     $("#settings-page").hide();
-     $("#birds-page").show();
-     $("#gallery-page").hide();
 
-     
-     
-     $.get( serverUrl+"/api/birds", function(data) {
-       console.log(data);
-       birds = data;
-       loadBirds();
-       
-     })
-
-    
-   })
-
-   $("#settings-button").click(()=>{
-     $("#settings-button").addClass('active');
-     $("#home-button").removeClass('active');
-     $("#gallery-button").removeClass('active');
-     $("#notif-button").removeClass('active');
-     $("#birds-button").removeClass('active');
-
-     $("#home-page").hide();
-     $("#gallery-page").hide();
-     $("#settings-page").show();
-     $("#birds-page").hide();
-   })
 
    showAlert = function(message){
      $("#alert").html(message);
@@ -407,6 +351,38 @@
 
  });
  
+ function logout(){
+    
+    $("#app").empty();
+    $("#app").load("login.html"); 
+     localStorage.removeItem("token");
+     token = undefined;
+     disconnectSocket();
+     $("#home-button").addClass('active');
+     $("#settings-button").removeClass('active');
+ }
+
+ function login(){
+    var username = $("#username").val();
+    var password = $("#password").val();
+    token = window.btoa(username+':'+password);
+    
+    localStorage.setItem("token",token);
+    //document.querySelector('#video').src = '/video_feed?token=' + token;
+    connectToSocket(token);
+    $("#app").empty();
+    $("#app").load("home.html"); 
+ }
+
+ function capture(){
+     
+    $.post( "/api/capture",{}, function(response) {
+       
+        showAlert('Image captured successfully!');
+        
+      })
+ }
+
  function disconnectSocket(){
    if(socket){
      socket.disconnect();
