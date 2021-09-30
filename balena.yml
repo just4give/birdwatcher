@@ -1,6 +1,58 @@
-name: "birdwatcher"
+name: "Bird Watcher"
 type: "sw.application"
-description: "This project enables you to run Edge Impulse Linux SDK on balenaOS to detect birds"
+description: "Make a bird watcher with a Pi4 and a camera and start watching the birds coming. Once a bird is watched, the snapshot and the type of bird is sent to a Telegram bot. It runs Edge Impulse and balena."
+post-provisioning: >-
+  ## What is Bird Watcher?
+  
+    Bird Watcher is a Bird Feeder with a Raspberry Pi 4 with a camera running balena and Edge Impulse Machine Learning service. This project run Edge Impulse Linux SDK on balenaOS allowing you to manage a fleet of devices.
+  
+  ## Installation Instructions
+  
+  ### Hardware and software needed
+  
+  * Raspberry Pi 4 Model B
+  * Raspberry Pi Camera or USB Camera
+  
+  * [Edge Impulse account](https://edgeimpulse.com/)
+  * [balenaEtcher](https://balena.io/etcher/)
+  
+  ### Join the fleet
+  
+    Running this project is as simple as click 'Join the fleet` button on this page. Clicking will open a pop-up, introduce the WiFi credentials and generate the balenaOS Operating System image. 
+
+    Once the OS image is downloaded on your computer, open [balenaEtcher](https://balena.io/etcher/). Flash an SD card with the OS image downloaded.
+
+    When the flashing process has completed successfully, insert your SD card into the Raspberry Pi 4 and connect the power supply.
+
+    After your device is flashed and powered up, simply open up a web browser on your computer on the same network. Enter the address: [http://birdwatcher.local](http://birdwatcher.local), and you will see the jobs your device(s) are currently running. 
+
+  
+  ### Configure the Variables
+  
+  #### Use your own Edge Impulse ML model
+  
+  #### Create a Telegram bot to share your watched birds
+  
+  ### Invite your community
+  
+    Once you have a Telegram bot URL, feel free to share it with the share it with the community.
+  
+  ### Troubleshooting
+  
+  #### Local website does not work
+  
+    If you have more than one device, the device names will increment like so: [http://birdwatcher-2.local](http://birdwatcher-2.local), [http://birdwatcher-3.local](http://birdwatcher-3.local)
+
+    The local hostname requires a multicast DNS (mDNS) service like Bonjour or Avahi:
+
+    * On Windows, check if 'Bonjour' is installed (Control Panel > Programs and Features). If not, you can download Bonjour for Windows from [https://support.apple.com/kb/DL999](https://support.apple.com/kb/DL999)
+    * Most 'desktop' Linux distributions ship with Avahi. Search for the installation command for your distribution. E.g. for Ubuntu: sudo apt-get install avahi-daemon
+    macOS comes with Bonjour built-in.
+  
+  ## Contributions are open
+  
+  Feel free to contribute into the repo [here](https://github.com/just4give/birdwatcher).
+  
 assets:
   repository:
     type: "blob.asset"
@@ -13,7 +65,7 @@ assets:
 data:
     applicationEnvironmentVariables:
       - EI_COLLECT_MODE_IMAGE: N
-      - EI_API_KEY_IMAGE: put_your_EI_api_key
+      - EI_API_KEY_IMAGE: ei_153fa3c6fe14b17b9bd0c03c0c4cc36dfcbb4ddc2404c816
       - TG_CHAT_ID: put_your_telegram_chatbot_id
       - TG_KEY: put_your_telegram_key
       - ENABLE_TG: N
@@ -30,5 +82,4 @@ data:
     defaultDeviceType: "raspberrypi4-64"
     supportedDeviceTypes: 
       - "raspberrypi4-64"
-      - "fincm3"
-      - "raspberrypi3"
+
