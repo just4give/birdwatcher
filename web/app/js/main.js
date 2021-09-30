@@ -63,8 +63,6 @@
 
    $("#capture").click(()=>{
 
-     
-     
      $.post( "/api/capture",{}, function(response) {
        
        showAlert('Image captured successfully!');
