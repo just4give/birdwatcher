@@ -25,8 +25,6 @@
     <link rel="shortcut icon" type="image/png" href="./assets/logo.png"/>
     <link rel="icon" type="image/png" href="./assets/logo.png"/>
     <link rel="apple-touch-icon" href="./assets/logo.png">
-    
-
 
   <title>Bird Watcher</title>
   <style>
@@ -56,13 +54,10 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
-            <!-- <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-            <li><a href="#">Link</a></li> -->
+
             <li id="home-button" class="active"><a><i class="fa fa-home" aria-hidden="true"></i> Home</li></a>
             <li id="gallery-button"><a ><i class="fa fa-bars" aria-hidden="true"></i> Snaps</li></a>
             <li id="settings-button"><a ><i class="fa fa-cogs" aria-hidden="true"></i> Settings</li></a>
-            <!--<li id="notif-button"><a><i class="fa fa-bell" aria-hidden="true"></i> Activity</li></a>-->
-            <!--<li id="birds-button"><a><i class="fa fa-twitter" aria-hidden="true"></i> Learn</li></a>-->
             
           </ul>
           
@@ -75,12 +70,56 @@
   <div id="app"></div>
   
 
+ 
+<div id="settings-page">
+
+  <div class="row">
+    <P style="text-align: right;"><button id="logout" style="margin-top: 20px;margin-right:20px;">LOGOUT</button></P>
+  </div>
+
+
+  <div class="row" style="margin-top: 50px;">
+    <p>Telegram Notification</p>
+    <label for="tg-chat-id">Telegram Chat ID</label>
+    <input type="text" id="tg-chat-id" placeholder="Telegram Chat ID">
+    <label for="tg-key">Telegram API key</label>
+      <input type="text" id="tg-key" placeholder="Telegram Bot key">
+    </div>
+    <div>
+      <button id="tg-update" style="margin-top: 20px;">Update Telegram credentials</button>
+  </div>
   
+  <div>
+    <div class="row" style="margin-top: 50px;">
+      <p>Edge Impulse API Keys</p>
+      <label for="ei-api-key">Edge Impulse API key</label>
+      <input type="text" id="ei-api-key" placeholder="Edge Impulse API Key">
+      <!--<input type="text" id="ei-project-id" placeholder="Edge Impulse Project ID">-->
+    </div>
+    <div>
+      <button id="ei-update" style="margin-top: 20px;">Update Edge Impulse API key</button>
+    </div>
+  </div>
+
+  <div>
+    <div class="row" style="margin-top: 50px;">
+      <p>Position your BirdWatcher or leave it 0, 0 if you want to stay private</p>
+      <label for="latitude">Latitude</label>
+      <input type="text" id="latitude" placeholder="Latitude">
+      <label for="longitude">Longitude</label>
+      <input type="text" id="longitude" placeholder="Longitude">
+    </div>
+    <div>
+      <button id="geo-update" style="margin-top: 20px;">Geolocate your BirdWatcher</button>
+    </div>
+  </div>
 
 
+</div>
 
 
-<!-- <div id="birds-page">
+<div id="birds-page">
+
   <table class="birds-table" style="margin-bottom: 10px;">
     <tr>
       <td>
