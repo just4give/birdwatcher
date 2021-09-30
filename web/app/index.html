@@ -409,7 +409,9 @@
 <div id="settings-page">
   <div class="row">
     <p>Telegram Notification</p>
-    <button id="tg-btn">Enable</button>
+      <input type="text" id="tg-chat-id" placeholder="Telegram Chat ID">
+      <input type="text" id="tg-key" placeholder="Telegram Bot Key">
+    <button id="tg-update">Update Telegram credentials</button>
   </div>
   
   <div>
@@ -422,6 +424,18 @@
       <button id="ei-update" style="margin-top: 20px;">Update ML model</button>
     </div>
   </div>
+
+  <div>
+    <div class="row">
+      <p>Position your BirdWatcher</p>
+      <input type="text" id="latitude" placeholder="Latitude">
+      <input type="text" id="longitude" placeholder="Longitude">
+    </div>
+    <div>
+      <button id="geo-update" style="margin-top: 20px;">Geolocate your BirdWatcher</button>
+    </div>
+  </div>
+
 
   <div>
     <P><button id="logout" style="margin-top: 20px;">LOGOUT</button></P>
@@ -529,7 +543,34 @@
          console.log(response);
          showAlert('Updating Edge Impulse credentials!');
        })
+      });
 
+
+      $("#tg-update").click(()=>{
+
+        console.log("Telegram credentials update!")
+
+        var tg_chat_id = $("#tg-chat-id").val();
+        var tg_key = $("#tg-key").val();
+
+        $.post( "http://birdwatcher.local:8080/api/update-telegram-keys",JSON.stringify({tg_chat_id: tg_chat_id, tg_key: tg_key}), function(response) {
+          console.log(response);
+          showAlert('Updating Telegram credentials!');
+        })
+      });
+
+
+      $("#geo-update").click(()=>{
+
+        console.log("Geolocation update!")
+
+        var lat = $("#latitude").val();
+        var lon = $("#longitude").val();
+
+        $.post( "http://birdwatcher.local:8080/api/update-geo",JSON.stringify({lat: lat, lon: lon}), function(response) {
+          console.log(response);
+          showAlert('Updating Geolocation!');
+        })
       });
 
      

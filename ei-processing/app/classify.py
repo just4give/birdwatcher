@@ -19,6 +19,11 @@ import logging
 import json
 import board
 import digitalio
+from balena import Balena
+
+balena = Balena()
+auth_token = 'NJTv82Wmv0TWeyGhnf8h0tbE0LN4jWPF' #os.getenv('BALENA_API_KEY')
+app_id = os.getenv('BALENA_APP_ID')
 
 async_mode = None
 runner = None
@@ -34,6 +39,7 @@ syspassword = os.environ['PASSWORD']
 EI_API_KEY_IMAGE = os.getenv('EI_API_KEY_IMAGE')
 EI_PROJECT_ID = os.getenv('EI_PROJECT_ID')
 EI_COLLECT_MODE_IMAGE = os.getenv('EI_COLLECT_MODE_IMAGE')
+
 BALENA_DEVICE_UUID = os.getenv('BALENA_DEVICE_UUID')
 
 ENABLE_MOTION = False
@@ -215,14 +221,75 @@ def update_ei_keys():
         ei_api_key = request.json["ei_api_key"]
         ei_project_id = request.json["ei_project_id"]
 
-        print(ei_api_key)
+        print("Calling balena SDK")
 
+        #balena.models.environment_variables.device_service_environment_variable.update()
+        #balena.settings.set(key='EI_API_KEY_IMAGE',value=ei_api_key)
+        
+        balena.auth.login_with_token(auth_token)
 
+        print("device authorized on balena")
 
-        return jsonify({"success":"true"}) 
+        result = balena.models.config_variable.device_config_variable.create('{BALENA_DEVICE_UUID}', "TEST", '{ei_api_key}')
+        print(result)
+
+        return jsonify({"success":"true", "result":result}) 
  
     except Exception as e:
         print('Exception:' + e)
+
+
+@app.route('/api/update-telegram-keys', methods=['POST'])
+def update_telegram_keys():
+    try:
+
+        tg_chat_id = request.json["tg_chat_id"]
+        tg_key = request.json["tg_key"]
+
+        print("Calling balena SDK")
+
+        #balena.models.environment_variables.device_service_environment_variable.update()
+        #balena.settings.set(key='EI_API_KEY_IMAGE',value=ei_api_key)
+        
+        balena.auth.login_with_token(auth_token)
+
+        print("device authorized on balena")
+
+        result = balena.models.config_variable.application_config_variable.get_all(app_id)
+        print(result)
+
+        return jsonify({"success":"true", "result":result}) 
+ 
+    except Exception as e:
+        print('Exception:' + e)
+
+
+
+@app.route('/api/update-geo', methods=['POST'])
+def update_geo():
+    try:
+
+        lat = request.json["lat"]
+        lon = request.json["lon"]
+
+        print("Calling balena SDK")
+
+        #balena.models.environment_variables.device_service_environment_variable.update()
+        #balena.settings.set(key='EI_API_KEY_IMAGE',value=ei_api_key)
+        
+        balena.auth.login_with_token(auth_token)
+
+        print("device authorized on balena")
+
+        result = balena.models.config_variable.application_config_variable.get_all(app_id)
+        print(result)
+
+        return jsonify({"success":"true", "result":result}) 
+ 
+    except Exception as e:
+        print('Exception:' + e)
+
+
 
 @socketio.on('connect')
 def socket_connect():
