@@ -206,10 +206,12 @@
 
     console.log("Credentials update!")
 
-    var username = $("#username").val();
-    var password = $("#password").val();
+    var user = $("#username").val();
+    var pass = $("#password").val();
 
-    $.post( serverUrl+"/settings/update-credentials",JSON.stringify({'user': username, 'pass': password}), function(response) {
+    console.log(user);
+
+    $.post( serverUrl+"/settings/update-credentials",JSON.stringify({'user': user, 'pass': pass}), function(response) {
       console.log(response);
       showAlert('Updating Credentials!');
     })
