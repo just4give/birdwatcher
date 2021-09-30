@@ -37,6 +37,13 @@
 
 
 
+   $("#reboot").click(()=>{
+      console.log("Reboot clicked!");
+  })
+
+   $("#capture").click(()=>{
+
+
      $.post( "/api/capture",{}, function(response) {
        
        showAlert('Image captured successfully!');
@@ -87,16 +94,28 @@
     });
 
 
-     $.get( "/api/tg", function(response) {
-       //console.log(response);
-       if(response.status === "N"){
-           $("#tg-btn").html("Disable");
-       }else{
-         $("#tg-btn").html("Enable");
-       }
-       
-       
-     })
+
+    $.get(serverUrl+"/settings/update-credentials", function (response){
+      console.log(response);
+      if (response.USERNAME != '') 
+      {
+        $("#username").attr('value', response.USERNAME);
+        $("#password").attr('value', response.PASSWORD);
+      }
+    });
+
+    $.get(serverUrl+"/settings/update-motion", function (response){
+      console.log(response);
+      if (response.MOTION == 'Y') 
+      {
+        $("#enable-motion").prop("checked", true);
+      }
+      else
+      {
+        $("#enable-motion").prop("checked", false);
+      }
+    });
+
 
    })
 
@@ -162,10 +181,12 @@
 
     console.log("Credentials update!")
 
-    var lat = $("#username").val();
-    var lon = $("#password").val();
+    var user = $("#username").val();
+    var pass = $("#password").val();
 
-    $.post( serverUrl+"/settings/update-credentials",JSON.stringify({'user': username, 'pass': password}), function(response) {
+    console.log(user);
+
+    $.post( serverUrl+"/settings/update-credentials",JSON.stringify({'user': user, 'pass': pass}), function(response) {
       console.log(response);
       showAlert('Updating Credentials!');
     })
@@ -173,12 +194,17 @@
 
   $("#motion-update").click(()=>{
 
-    console.log("Motion Detection update!")
+    console.log("Motion Detection update!");
+    var mot = "Y";
 
-    var mot = $("#enable-motion").val();
-    console.log(mot);
-    if (mot == "on") mot = "Y";
-    else mot = "N";
+    if($("#motion-update").prop("checked") == true)
+    {
+      mot = "Y";
+    }
+    else
+    {
+      mot = "N";
+    }
 
     $.post( serverUrl+"/settings/update-motion",JSON.stringify({'motion': mot}), function(response) {
       console.log(response);
