@@ -121,7 +121,7 @@
     var ei_api_key = $("#ei-api-key").val();
     var ei_project_id = $("#ei-project-id").val();
     
-    $.post( "http://birdwatcher.local:3000/settings/update-ei-keys",JSON.stringify({ei_project_id: ei_project_id, ei_api_key: ei_api_key}), function(response) {
+    $.post( serverUrl+"/settings/update-ei-keys",JSON.stringify({'ei_project_id': ei_project_id, 'ei_api_key': ei_api_key}), function(response) {
      console.log(response);
      showAlert('Updating Edge Impulse credentials!');
    })
@@ -135,7 +135,7 @@
     var tg_chat_id = $("#tg-chat-id").val();
     var tg_key = $("#tg-key").val();
 
-    $.post( "http://birdwatcher.local:3000/settings/update-telegram-keys",JSON.stringify({tg_chat_id: tg_chat_id, tg_key: tg_key}), function(response) {
+    $.post( serverUrl+"/settings/update-telegram-keys",JSON.stringify({tg_chat_id: tg_chat_id, tg_key: tg_key}), function(response) {
       console.log(response);
       showAlert('Updating Telegram credentials!');
     })
@@ -149,7 +149,7 @@
     var lat = $("#latitude").val();
     var lon = $("#longitude").val();
 
-    $.post( "http://birdwatcher.local:3000/settings/update-geo",JSON.stringify({lat: lat, lon: lon}), function(response) {
+    $.post( serverUrl+"/settings/update-geo",JSON.stringify({lat: lat, lon: lon}), function(response) {
       console.log(response);
       showAlert('Updating Geolocation!');
     })
