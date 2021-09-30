@@ -65,6 +65,10 @@
      $("#settings-button").removeClass('active');
    })
 
+   $("#reboot").click(()=>{
+      console.log("Reboot clicked!");
+  })
+
    $("#capture").click(()=>{
 
      $.post( "/api/capture",{}, function(response) {
@@ -213,13 +217,17 @@
 
   $("#motion-update").click(()=>{
 
-    console.log("Motion Detection update!")
+    console.log("Motion Detection update!");
+    var mot = "Y";
 
-    var mot = $("#enable-motion").checked;
-    console.log(mot);
-
-    if (mot) mot = "Y";
-    else mot = "N";
+    if($("#motion-update").prop("checked") == true)
+    {
+      mot = "Y";
+    }
+    else
+    {
+      mot = "N";
+    }
 
     $.post( serverUrl+"/settings/update-motion",JSON.stringify({'motion': mot}), function(response) {
       console.log(response);
