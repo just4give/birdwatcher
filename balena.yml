@@ -1,6 +1,6 @@
 name: "Bird Watcher"
 type: "sw.application"
-description: "Make a bird watcher with a Pi4 and a camera and start watching the birds coming. Once a bird is watched, the snapshot and the type of bird is sent to a Telegram bot. It runs Edge Impulse and balena."
+description: "Make a bird watcher with a Pi4 and a camera and start classifying the birds around you. It runs Edge Impulse, Telegram and balena."
 post-provisioning: >-
   ## What is Bird Watcher?
   
