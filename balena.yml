@@ -19,9 +19,9 @@ post-provisioning: >-
   * [balenaEtcher](https://balena.io/etcher/)
   
   
-  ### Join the fleet
+  ### Get Started
   
-    Running this project is as simple as click 'Join the fleet` button on this page. Clicking will open a pop-up, introduce the WiFi credentials and generate the balenaOS Operating System image. 
+    Running this project is as simple as click 'Get started` button on this page. Clicking will open a pop-up, introduce the WiFi credentials and generate the balenaOS Operating System image. 
 
     Once the OS image is downloaded on your computer, open [balenaEtcher](https://balena.io/etcher/). Flash an SD card with the OS image downloaded.
 
