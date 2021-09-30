@@ -11,7 +11,9 @@ const ENABLE_MOTION = process.env.ENABLE_MOTION ||'';
 const EI_API_KEY_IMAGE = process.env.EI_API_KEY_IMAGE ||'';
 const LATITUDE = process.env.LATITUDE ||'';
 const LONGITUDE = process.env.LONGITUDE ||'';
-const AUTH_TOKEN = "7p1MdKIeaX6c34u0aQABtQ7ZHBGCj5NR";
+const AUTH_TOKEN = process.env.AUTH_TOKEN; // FLEET VARIABLE
+const USERNAME = process.env.USERNAME;
+const PASSWORD = process.env.PASSWORD;
 
 const BALENA_API_KEY = process.env.BALENA_API_KEY;
 
@@ -228,11 +230,11 @@ app.post('/settings/update-motion', async (req, res)=>{
     console.log("Update Motion ", req.body);
 
 	try {
-        if (req.body.mot != ENABLE_MOTION){
+        if (req.body.motion != ENABLE_MOTION){
             await sdk.models.device.envVar.set(
                 process.env.BALENA_DEVICE_UUID,
                 "ENABLE_MOTION",
-                req.body.mot
+                req.body.motion
             );
             console.log("MOTION updated!");
         }

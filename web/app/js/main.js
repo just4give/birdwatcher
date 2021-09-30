@@ -116,17 +116,27 @@
     });
 
 
+    $.get(serverUrl+"/settings/update-credentials", function (response){
+      console.log(response);
+      if (response.USERNAME != '') 
+      {
+        $("#username").attr('value', response.USERNAME);
+        $("#password").attr('value', response.PASSWORD);
+      }
+    });
 
-     $.get( "/api/tg", function(response) {
-       //console.log(response);
-       if(response.status === "N"){
-           $("#tg-btn").html("Disable");
-       }else{
-         $("#tg-btn").html("Enable");
-       }
-       
-       
-     })
+    $.get(serverUrl+"/settings/update-motion", function (response){
+      console.log(response);
+      if (response.MOTION == 'Y') 
+      {
+        $("#enable-motion").prop("checked", true);
+      }
+      else
+      {
+        $("#enable-motion").prop("checked", false);
+      }
+    });
+
 
    })
 
@@ -192,8 +202,8 @@
 
     console.log("Credentials update!")
 
-    var lat = $("#username").val();
-    var lon = $("#password").val();
+    var username = $("#username").val();
+    var password = $("#password").val();
 
     $.post( serverUrl+"/settings/update-credentials",JSON.stringify({'user': username, 'pass': password}), function(response) {
       console.log(response);
@@ -205,9 +215,10 @@
 
     console.log("Motion Detection update!")
 
-    var mot = $("#enable-motion").val();
+    var mot = $("#enable-motion").checked;
     console.log(mot);
-    if (mot == "on") mot = "Y";
+
+    if (mot) mot = "Y";
     else mot = "N";
 
     $.post( serverUrl+"/settings/update-motion",JSON.stringify({'motion': mot}), function(response) {
