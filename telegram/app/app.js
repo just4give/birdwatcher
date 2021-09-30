@@ -12,6 +12,8 @@ const EI_API_KEY_IMAGE = process.env.EI_API_KEY_IMAGE ||'';
 const LATITUDE = process.env.LATITUDE ||'';
 const LONGITUDE = process.env.LONGITUDE ||'';
 
+const BALENA_API_KEY = process.env.BALENA_API_KEY;
+
 
 const express = require('express');
 const bodyParser = require('body-parser')
@@ -83,8 +85,8 @@ app.post('/settings/update-ei-keys', async (req, res)=>{
     console.log("Update EI credentials ", req.body);
     
     sdk = SdkInstanceFactory();
-	sdk.auth.logout();
-	sdk.auth.loginWithToken(process.env.BALENA_API_KEY);
+	//sdk.auth.logout();
+	//sdk.auth.loginWithToken(process.env.BALENA_API_KEY);
 
     let accountKey = "";
 	try {
@@ -95,10 +97,11 @@ app.post('/settings/update-ei-keys', async (req, res)=>{
 				$filter: { service_name: "ei-processing" },
 			}
 		);
-		accountKey = await sdk.models.device.serviceVar.get(
+		await sdk.models.device.serviceVar.set(
 			process.env.BALENA_DEVICE_UUID,
 			serviceId,
-			"EI_API_KEY_IMAGE"
+			"EI_API_KEY_IMAGE",
+			req.body.ei_api_key
 		);
 	} catch (error) {
 		console.log("error", error);
