@@ -11,6 +11,7 @@
    $.ajaxSetup({
      headers:{
          'Content-Type': "application/json",
+         'Access-Control-Allow-Origin': "*",
          'contentType': "application/json; charset=utf-8"
      }
    });
@@ -95,6 +96,8 @@
      })
 
    })
+
+   /*
    $("#tg-btn").click(()=>{
      var tgStatus = "N";
      if($("#tg-btn").html() === "Disable"){
@@ -109,6 +112,48 @@
      })
 
    });
+   */
+
+   $("#ei-update").click(()=>{
+
+    console.log("Edge Impulse credentials update!")
+
+    var ei_api_key = $("#ei-api-key").val();
+    var ei_project_id = $("#ei-project-id").val();
+    
+    $.post( "http://birdwatcher.local:3000/settings/update-ei-keys",JSON.stringify({ei_project_id: ei_project_id, ei_api_key: ei_api_key}), function(response) {
+     console.log(response);
+     showAlert('Updating Edge Impulse credentials!');
+   })
+  });
+
+
+  $("#tg-update").click(()=>{
+
+    console.log("Telegram credentials update!")
+
+    var tg_chat_id = $("#tg-chat-id").val();
+    var tg_key = $("#tg-key").val();
+
+    $.post( "http://birdwatcher.local:3000/settings/update-telegram-keys",JSON.stringify({tg_chat_id: tg_chat_id, tg_key: tg_key}), function(response) {
+      console.log(response);
+      showAlert('Updating Telegram credentials!');
+    })
+  });
+
+
+  $("#geo-update").click(()=>{
+
+    console.log("Geolocation update!")
+
+    var lat = $("#latitude").val();
+    var lon = $("#longitude").val();
+
+    $.post( "http://birdwatcher.local:3000/settings/update-geo",JSON.stringify({lat: lat, lon: lon}), function(response) {
+      console.log(response);
+      showAlert('Updating Geolocation!');
+    })
+  });
 
 
    $("#home-button").click(()=>{
