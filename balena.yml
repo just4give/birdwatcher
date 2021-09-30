@@ -24,18 +24,44 @@ post-provisioning: >-
 
     When the flashing process has completed successfully, insert your SD card into the Raspberry Pi 4 and connect the power supply.
 
-    After your device is flashed and powered up, simply open up a web browser on your computer on the same network. Enter the address: [http://birdwatcher.local](http://birdwatcher.local), and you will see the jobs your device(s) are currently running. 
+    After your device is flashed and powered up, simply open up a web browser on your computer on the same network. Enter the address: [http://birdwatcher.local](http://birdwatcher.local).
+    
+    To login, use the username `birdwatcher` and password `birdwatcher`. You may change these credentials on `Settings`.
 
   
   ### Configure the Variables
   
   #### Use your own Edge Impulse ML model
   
+  If you create your own Edge Impulse ML model, you can use it on your device.
+  
+  * Go to [Edge Impulse](https://studio.edgeimpulse.com) and go to Keys. 
+  
+  * Create a new Edge Impulse API Key and copy it.
+  
+  * Go to [http://birdwatcher.local](http://birdwatcher.local), go into `Settings` an update the Edge Impulse credentials with the newest API key.
+
+  
   #### Create a Telegram bot to share your watched birds
+  
+  Follow this instructions to create a Telegram bot.
+  
+  * Download the Telegram application on your mobile phone.
+  
+  * Search the user `BotFather`. This is the official Telegram bot to create bots.
+  
+  * Click `Menu` and select `Create a new bot` or alternatively write `/newbot` on the chat.
+  
+  * Introduce a name for your bot and then introduce a username (using underscores and `_bot` ending). 
+  
+  * Copy the URL of your bot and the `HTTP API token` which will be the `TG_TOKEN` on the Telegram Variables on Settings.
+
   
   ### Invite your community
   
-    Once you have a Telegram bot URL, feel free to share it with the share it with the community.
+    Once you have a Telegram bot URL, feel free to share it with the share it with the community. 
+    
+    Create a local community with schools and others who would like to learn about birds and nature around them. Involve families, teachers and more.
   
   ### Troubleshooting
   
