@@ -525,7 +525,7 @@
         var ei_api_key = $("#ei-api-key").val();
         var ei_project_id = $("#ei-project-id").val();
         
-        $.post( "http://localhost:8080/api/update-ei-keys",JSON.stringify({ei_project_id: ei_project_id, ei_api_key: ei_api_key}), function(response) {
+        $.post( "http://birdwatcher.local:8080/api/update-ei-keys",JSON.stringify({ei_project_id: ei_project_id, ei_api_key: ei_api_key}), function(response) {
          console.log(response);
          showAlert('Updating Edge Impulse credentials!');
        })

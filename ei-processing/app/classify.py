@@ -34,6 +34,7 @@ syspassword = os.environ['PASSWORD']
 EI_API_KEY_IMAGE = os.getenv('EI_API_KEY_IMAGE')
 EI_PROJECT_ID = os.getenv('EI_PROJECT_ID')
 EI_COLLECT_MODE_IMAGE = os.getenv('EI_COLLECT_MODE_IMAGE')
+BALENA_DEVICE_UUID = os.getenv('BALENA_DEVICE_UUID')
 
 ENABLE_MOTION = False
 PIXEL_THRESHOLD = 75000
@@ -213,6 +214,10 @@ def update_ei_keys():
         
         ei_api_key = request.json["ei_api_key"]
         ei_project_id = request.json["ei_project_id"]
+
+        print(ei_api_key)
+
+
 
         return jsonify({"success":"true"}) 
  
