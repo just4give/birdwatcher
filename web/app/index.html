@@ -143,14 +143,47 @@
 </div>
 
 <div id="settings-page">
+
   <div class="row">
+    <P style="text-align: right;"><button id="logout" style="margin-top: 20px;">LOGOUT</button></P>
+  </div>
+
+
+  <div class="row" style="margin-top: 50px;">
     <p>Telegram Notification</p>
-    <button id="tg-btn">Enable</button>
+      <input type="text" id="tg-chat-id" placeholder="Telegram Chat ID">
+      <input type="text" id="tg-key" placeholder="Telegram Bot Key">
+    </div>
+    <div>
+      <button id="tg-update">Update Telegram credentials</button>
   </div>
+  
   <div>
-    <button id="logout" style="margin-top: 20px;">LOGOUT</button>
+    <div class="row" style="margin-top: 50px;">
+      <p>Edge Impulse API Keys</p>
+      <input type="text" id="ei-api-key" placeholder="Edge Impulse API Key">
+      <input type="text" id="ei-project-id" placeholder="Edge Impulse Project ID">
+    </div>
+    <div>
+      <button id="ei-update" style="margin-top: 20px;">Update ML model</button>
+    </div>
   </div>
+
+  <div>
+    <div class="row" style="margin-top: 50px;">
+      <p>Position your BirdWatcher</p>
+      <input type="text" id="latitude" placeholder="Latitude">
+      <input type="text" id="longitude" placeholder="Longitude">
+    </div>
+    <div>
+      <button id="geo-update" style="margin-top: 20px;">Geolocate your BirdWatcher</button>
+    </div>
+  </div>
+
+
 </div>
+
+
 <div id="birds-page">
   <table class="birds-table" style="margin-bottom: 10px;">
     <tr>
