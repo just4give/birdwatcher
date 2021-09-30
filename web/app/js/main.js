@@ -135,7 +135,7 @@
     var tg_chat_id = $("#tg-chat-id").val();
     var tg_key = $("#tg-key").val();
 
-    $.post( serverUrl+"/settings/update-telegram-keys",JSON.stringify({tg_chat_id: tg_chat_id, tg_key: tg_key}), function(response) {
+    $.post( serverUrl+"/settings/update-telegram-keys",JSON.stringify({'tg_chat_id': tg_chat_id, 'tg_key': tg_key}), function(response) {
       console.log(response);
       showAlert('Updating Telegram credentials!');
     })
@@ -149,7 +149,7 @@
     var lat = $("#latitude").val();
     var lon = $("#longitude").val();
 
-    $.post( serverUrl+"/settings/update-geo",JSON.stringify({lat: lat, lon: lon}), function(response) {
+    $.post( serverUrl+"/settings/update-geo",JSON.stringify({'lat': lat, 'lon': lon}), function(response) {
       console.log(response);
       showAlert('Updating Geolocation!');
     })
