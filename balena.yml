@@ -11,10 +11,13 @@ post-provisioning: >-
   ### Hardware and software needed
   
   * Raspberry Pi 4 Model B
+  
   * Raspberry Pi Camera or USB Camera
   
   * [Edge Impulse account](https://edgeimpulse.com/)
+  
   * [balenaEtcher](https://balena.io/etcher/)
+  
   
   ### Join the fleet
   
