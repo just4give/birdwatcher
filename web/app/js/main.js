@@ -19,12 +19,15 @@
 
    var token = localStorage.getItem("token");
 
-   if(token){
+   if(token)
+   {
      $("#login-page").hide();
      $("#home-page").show();
      //document.querySelector('#video').src = '/video_feed?token=' + token;
      connectToSocket(token);
-   }else{
+   }
+   else
+   {
      $("#login-page").show();
      $("#home-page").hide();
    }
@@ -84,6 +87,36 @@
      $("#home-page").hide();
      $("#settings-page").show();
      $("#birds-page").hide();
+
+     $.get(serverUrl+"/settings/update-ei-keys", function (response){
+      console.log(response);
+      if (response.EI_API_KEY_IMAGE != '')
+      {
+        $("#ei-api-key").attr('value', response.EI_API_KEY_IMAGE);
+      }
+    });
+
+    $.get(serverUrl+"/settings/update-geo", function (response){
+      console.log(response);
+      if (response.LATITUDE != '')
+      {
+        $("#latitude").attr('value', response.LATITUDE);
+        $("#longitude").attr('value', response.LONGITUDE);
+      }
+    });
+
+
+    $.get(serverUrl+"/settings/update-telegram-keys", function (response){
+      console.log(response);
+      if (response.TG_TOKEN != '') 
+      {
+        $("#tg-chat-id").attr('value', response.TG_CHAT_ID);
+        $("#tg-token").attr('value', response.TG_TOKEN);
+      }
+    });
+
+
+
      $.get( "/api/tg", function(response) {
        //console.log(response);
        if(response.status === "N"){
@@ -133,9 +166,9 @@
     console.log("Telegram credentials update!")
 
     var tg_chat_id = $("#tg-chat-id").val();
-    var tg_key = $("#tg-key").val();
+    var tg_token = $("#tg-token").val();
 
-    $.post( serverUrl+"/settings/update-telegram-keys",JSON.stringify({'tg_chat_id': tg_chat_id, 'tg_key': tg_key}), function(response) {
+    $.post( serverUrl+"/settings/update-telegram-keys",JSON.stringify({'tg_chat_id': tg_chat_id, 'tg_token': tg_token}), function(response) {
       console.log(response);
       showAlert('Updating Telegram credentials!');
     })
@@ -152,6 +185,34 @@
     $.post( serverUrl+"/settings/update-geo",JSON.stringify({'lat': lat, 'lon': lon}), function(response) {
       console.log(response);
       showAlert('Updating Geolocation!');
+    })
+  });
+
+  $("#credentials-update").click(()=>{
+
+    console.log("Credentials update!")
+
+    var lat = $("#username").val();
+    var lon = $("#password").val();
+
+    $.post( serverUrl+"/settings/update-credentials",JSON.stringify({'user': username, 'pass': password}), function(response) {
+      console.log(response);
+      showAlert('Updating Credentials!');
+    })
+  });
+
+  $("#motion-update").click(()=>{
+
+    console.log("Motion Detection update!")
+
+    var mot = $("#enable-motion").val();
+    console.log(mot);
+    if (mot == "on") mot = "Y";
+    else mot = "N";
+
+    $.post( serverUrl+"/settings/update-motion",JSON.stringify({'motion': mot}), function(response) {
+      console.log(response);
+      showAlert('Updating Motion Detection!');
     })
   });
 

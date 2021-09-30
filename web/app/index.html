@@ -148,13 +148,23 @@
     <P style="text-align: right;"><button id="logout" style="margin-top: 20px;margin-right:20px;">LOGOUT</button></P>
   </div>
 
+  <div class="row" style="margin-top: 50px;">
+    <p>Motion Detection</p>
+    <label for="enable-motion">Enable motion to capture birds not classified by the ML model and retrain the system</label>
+    <input type="checkbox" id="enable-motion" checked>
+    <div>
+      <button id="motion-update" style="margin-top: 20px;">Update Motion Detection</button>
+    </div>
+  </div>
+
+  
 
   <div class="row" style="margin-top: 50px;">
     <p>Telegram Notification</p>
     <label for="tg-chat-id">Telegram Chat ID</label>
     <input type="text" id="tg-chat-id" placeholder="Telegram Chat ID">
-    <label for="tg-key">Telegram API key</label>
-      <input type="text" id="tg-key" placeholder="Telegram Bot key">
+    <label for="tg-token">Telegram API key</label>
+      <input type="text" id="tg-token" placeholder="Telegram Bot key">
     </div>
     <div>
       <button id="tg-update" style="margin-top: 20px;">Update Telegram credentials</button>
@@ -182,6 +192,19 @@
     </div>
     <div>
       <button id="geo-update" style="margin-top: 20px;">Geolocate your BirdWatcher</button>
+    </div>
+  </div>
+
+  <div>
+    <div class="row" style="margin-top: 50px;">
+      <p>Website Credentials</p>
+      <label for="username">Username</label>
+      <input type="text" id="username" placeholder="username">
+      <label for="password">Password</label>
+      <input type="password" id="password" placeholder="password">
+    </div>
+    <div>
+      <button id="credentials-update" style="margin-top: 20px;">Update your credentials</button>
     </div>
   </div>
 
