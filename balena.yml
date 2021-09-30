@@ -99,6 +99,8 @@ data:
       - PIXEL_THRESHOLD: 75000
       - USERNAME: birdwatcher
       - PASSWORD: birdwatcher
+      - LATITUDE: 0
+      - LONGITUDE: 0
       
     applicationConfigVariables:
       - BALENA_HOST_CONFIG_start_x: 1
