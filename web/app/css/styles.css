@@ -1,0 +1,259 @@
+body {
+    background-color: white;
+  }
+
+  .title {
+    color: white;
+    font-size: 1.5em;
+  }
+
+  .magrin-top-20 {
+    margin-top: 20px;
+  }
+
+  #video-container {
+
+    text-align: center;
+  }
+
+  #video-container button {
+    background-color: #000000;
+    color: white;
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    box-shadow: none;
+    margin: auto;
+  }
+
+  #video-container .classification{
+    margin-bottom: 10px;
+  }
+
+  #video-container .classification ul{
+    list-style: none;
+    display: flex;
+    margin: auto;
+    width: 400px;
+  }
+
+  #video-container .classification li{
+    padding: 5px 10px;
+    background-color: #f44336;
+    border-radius: 5px;
+    margin-right: 10px;
+    color: white;
+    font-size: 1.2em;
+    text-transform: capitalize;
+  }
+
+  .camera {
+    /* border: 5px solid #b0bec5; */
+    border-radius: 10px;
+    width: 80%;
+    max-width: 640px;
+    margin-bottom: 20px;
+  }
+
+  .bg-dark {
+    background-color: #000000 !important;
+  }
+
+
+  .navbar-brand img {
+    height: 100%;
+    float: left;
+    margin-right: 10px;
+  }
+
+  .footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+
+    background-color: #000000;
+    /* overflow: hidden; */
+  }
+  .sticky-top {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 1020;
+}
+
+  .footer ul {
+    list-style: none;
+    /* overflow: hidden; */
+    color: white;
+    text-align: center;
+    padding: 0px;
+    display: flex;
+    width: 400px;
+    margin: auto;
+  }
+
+  .footer ul li {
+    width: 100px;
+    background-color: #263238;
+    padding: 0px 10px;
+    border-right: 1px solid #607d8b;
+
+  }
+
+  footer ul li.active {
+    background-color: #607d8b;
+  }
+
+  .footer ul li a {
+    color: white;
+    text-decoration: none;
+  }
+
+  .footer ul li a i {
+    margin-right: 3px;
+  }
+
+  .birds-table {
+    margin-bottom: 10px;
+  }
+
+
+
+  .birds-table input[type="text"],
+  input[type="password"] {
+    background: #263238;
+    border: none;
+    color: white;
+    font-size: 15px;
+    border-radius: 10px;
+    padding: 10px;
+    margin-left: 10px;
+    text-align: center;
+    
+  }
+
+  .birds-table button {
+    background-color: #000000;
+    font-size: 14px;
+    padding: 10px 40px 10px 40px;
+    border-radius: 10px;
+    border: 0px;
+    color: white;
+    
+  }
+
+  .birds-table ::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: white;
+    opacity: 0.5;
+    /* Firefox */
+  }
+
+
+  .login-table {
+    margin: auto;
+    text-align: center;
+  }
+
+  .login-table input[type="text"],
+  input[type="password"] {
+    background: #263238;
+    border: none;
+    color: white;
+    font-size: 15px;
+    border-radius: 10px;
+    padding: 10px;
+    width: 300px;
+    text-align: center;
+    margin-top: 5px;
+  }
+
+  .login-table button {
+    background-color: #000000;
+    font-size: 14px;
+    padding: 10px 40px 10px 40px;
+    border-radius: 10px;
+    border: 0px;
+    color: white;
+    margin-top: 20px;
+  }
+
+  .login-table ::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: white;
+    opacity: 0.5;
+    /* Firefox */
+  }
+
+
+  .disclaimer {
+    position: relative;
+    top: 220px;
+    text-align: center;
+    color: #9e9e9e;
+    padding: 20px;
+  }
+
+  .capitalize {
+    text-transform: capitalize;
+  }
+
+  .snap-button{
+    background-color: red;
+  }
+
+  #settings-page{
+    text-align: center;
+  }
+
+  #settings-page button {
+    background-color: #000000;
+    font-size: 14px;
+    padding: 10px 40px 10px 40px;
+    border-radius: 10px;
+    border: 0px;
+    color: white;
+    
+  }
+
+  .alert{
+    position: fixed;
+    bottom: 60px;
+    right: 0;
+    z-index: 1;
+    text-align: center;
+    margin-right: 10px;
+    background: green;
+    color: white;
+  }
+  .logo-holder{
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    padding: 5px;
+  }
+  .logo-holder img{
+    width: 100px;
+  }
+
+  #gallery-page{
+    padding: 10px;
+  }
+
+  #gallery-page .thumbnail{
+    border: 1px solid #e9e9e9;
+    background-color: #e9e9e9;
+  }
+
+  #gallery-page .thumbnail .caption{
+    color: #6c6868;
+    text-transform: capitalize;
+  }
+  #gallery-page .thumbnail .NA{
+    display: none
+  }
+  .navbar-nav li:hover{
+    cursor: pointer;
+  }
