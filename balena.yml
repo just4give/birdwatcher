@@ -45,7 +45,7 @@ post-provisioning: >-
   * Go to [http://birdwatcher.local](http://birdwatcher.local), go into `Settings` an update the Edge Impulse credentials with the newest API key.
 
   
-  #### Create a Telegram bot to share your watched birds
+  #### Create a Telegram bot and a Channel to share your watched birds
   
   Follow this instructions to create a Telegram bot.
   
@@ -58,6 +58,12 @@ post-provisioning: >-
   * Introduce a name for your bot and then introduce a username (using underscores and `_bot` ending). 
   
   * Copy the URL of your bot and the `HTTP API token` which will be the `TG_TOKEN` on the Telegram Variables on Settings.
+  
+  * Go to Telegram app and create a private Channel and introduce as a subscriber the bot that you have created.
+  
+  * Open a browser and type `https://api.telegram.org/bot<TG_TOKEN>/getUpdates` (change `TG_TOKEN` by the real one).
+  
+  * Copy the chat id from the bot and introduce it as a `TG_GHAT_ID` on the Settings.
 
   
   ### Invite your community
