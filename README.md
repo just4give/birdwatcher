@@ -10,7 +10,6 @@ This project enables you to run Edge Impulse Linux SDK on balenaOS thus allowing
 ### To-Do List
 
 - [X] hostname: confirm that http://birdwatcher.local works if you are on the same network than the Bird Watcher.
-- [ ] Home: List birds watched nearby the real-time picture. IDEA: list (with text) of birds spotted with the date and link to Snaps?
 - [X] Snaps: check title of Snaps (I see `motion` instead of the bird name)
 - [X] Snaps: pictures of watched to train the ML shouldn't have the box with the name of the bird. Solution: store picture with no box and with box. We will show on Snaps the picture with box and send to Edge Impulse the picture without box.
 - [X] Settings: Add GPS (lat and lon form) of the Bird Watcher.
