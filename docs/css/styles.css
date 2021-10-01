@@ -94,3 +94,15 @@ body{
     border-radius: 20px;
   }
 
+
+  .diy {
+    padding-top: 50px;
+    padding-bottom: 50px;
+    background-color: white;
+    border-top: 5px solid var(--secondary-color);
+    color: var(--primary-color);
+  }
+
+  .diy img{
+    width: 100%;
+  }
