@@ -21,18 +21,16 @@
 
    var token = localStorage.getItem("token");
 
-   if(token)
-   {
-     $("#login-page").hide();
-     $("#home-page").show();
+   $("#alert").hide();
+   
+   if(token){
+    $("#app").empty();
+    $("#app").load("home.html"); 
      //document.querySelector('#video').src = '/video_feed?token=' + token;
      connectToSocket(token);
-   }
-   else
-   {
-     $("#login-page").show();
-     $("#home-page").hide();
-
+   }else{
+    $("#app").empty();
+    $("#app").load("login.html"); 
    }
 
 
@@ -41,16 +39,7 @@
       console.log("Reboot clicked!");
   })
 
-   $("#capture").click(()=>{
-
-
-     $.post( "/api/capture",{}, function(response) {
-       
-       showAlert('Image captured successfully!');
-       
-     })
-
-
+   
 
    //tab buttons
    
@@ -62,9 +51,10 @@
      $("#gallery-button").removeClass('active');
      $("#notif-button").removeClass('active');
      $("#birds-button").removeClass('active');
-     $("#home-page").hide();
-     $("#settings-page").show();
-     $("#birds-page").hide();
+     
+     $("#app").empty();
+     $("#app").load("settings.html"); 
+
 
      $.get(serverUrl+"/settings/update-ei-keys", function (response){
       console.log(response);
@@ -119,24 +109,8 @@
 
    })
 
-   /*
-   $("#tg-btn").click(()=>{
-     var tgStatus = "N";
-     if($("#tg-btn").html() === "Disable"){
-       tgStatus = "Y";
-       $("#tg-btn").html("Enable");
-     }else{
-       tgStatus = "N";
-       $("#tg-btn").html("Disable");
-     }
-     $.post( `/api/tg-update`,JSON.stringify({status: tgStatus}), function(response) {
-       
-     })
-
-   });
-   */
-
-   $("#ei-update").click(()=>{
+   
+   eiupdate = ()=>{
 
     console.log("Edge Impulse credentials update!")
 
@@ -147,10 +121,10 @@
      console.log(response);
      showAlert('Updating Edge Impulse credentials!');
    })
-  });
+  }
 
 
-  $("#tg-update").click(()=>{
+  tgupdate = ()=>{
 
     console.log("Telegram credentials update!")
 
@@ -161,10 +135,10 @@
       console.log(response);
       showAlert('Updating Telegram credentials!');
     })
-  });
+  }
 
 
-  $("#geo-update").click(()=>{
+  geoupdate = ()=>{
 
     console.log("Geolocation update!")
 
@@ -175,9 +149,9 @@
       console.log(response);
       showAlert('Updating Geolocation!');
     })
-  });
+  }
 
-  $("#credentials-update").click(()=>{
+  credentialsupdate = ()=>{
 
     console.log("Credentials update!")
 
@@ -190,9 +164,9 @@
       console.log(response);
       showAlert('Updating Credentials!');
     })
-  });
+  }
 
-  $("#motion-update").click(()=>{
+  motionupdate = ()=>{
 
     console.log("Motion Detection update!");
     var mot = "Y";
@@ -210,52 +184,50 @@
       console.log(response);
       showAlert('Updating Motion Detection!');
     })
-  });
+  }
 
 
-   $("#home-button").click(()=>{
-     $("#settings-button").removeClass('active');
-     $("#home-button").addClass('active');
-     $("#gallery-button").removeClass('active');
-     $("#notif-button").removeClass('active');
-     $("#birds-button").removeClass('active');
+  $("#home-button").click(()=>{
+    $("#settings-button").removeClass('active');
+    $("#home-button").addClass('active');
+    $("#gallery-button").removeClass('active');
+    $("#notif-button").removeClass('active');
+    $("#birds-button").removeClass('active');
 
 
-     if(token){
-        $("#app").empty();
-        $("#app").load("home.html"); 
-        connectToSocket(token);
-     }else{
-        $("#app").empty();
-        $("#app").load("login.html"); 
-     }
-     
-     $("#settings-page").hide();
-     $("#gallery-page").hide();
-     $("#birds-page").hide();
-   })
-
-   $("#gallery-button").click(()=>{
-     disconnectSocket();
-     $("#settings-button").removeClass('active');
-     $("#home-button").removeClass('active');
-     $("#gallery-button").addClass('active');
-     $("#notif-button").removeClass('active');
-     $("#birds-button").removeClass('active');
-
-     $("#app").empty();
-     $("#app").load("snapshots.html"); 
-     
-     
-     $.get( serverUrl+"/api/snapshots", function(data) {
-       snapshots = data;
-       loadSnapshots();
-       
-     })
-
+    if(token){
+       $("#app").empty();
+       $("#app").load("home.html"); 
+       connectToSocket(token);
+    }else{
+       $("#app").empty();
+       $("#app").load("login.html"); 
+    }
     
+    $("#settings-page").hide();
+    $("#gallery-page").hide();
+    $("#birds-page").hide();
+  })
 
-   })
+
+$("#gallery-button").click(()=>{
+    disconnectSocket();
+    $("#settings-button").removeClass('active');
+    $("#home-button").removeClass('active');
+    $("#gallery-button").addClass('active');
+    $("#notif-button").removeClass('active');
+    $("#birds-button").removeClass('active');
+
+    $("#app").empty();
+    $("#app").load("snapshots.html"); 
+    
+    
+    $.get( serverUrl+"/api/snapshots", function(data) {
+      snapshots = data;
+      loadSnapshots();
+      
+    })
+})
 
 
 
@@ -389,6 +361,7 @@
    }
  }
  function connectToSocket(token){
+
    socket = io.connect(serverUrl,{query:{token:token}});
    
    socket.on( 'ei_event', function(predictions) {

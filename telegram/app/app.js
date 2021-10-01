@@ -11,7 +11,7 @@ const ENABLE_MOTION = process.env.ENABLE_MOTION ||'';
 const EI_API_KEY_IMAGE = process.env.EI_API_KEY_IMAGE ||'';
 const LATITUDE = process.env.LATITUDE ||'';
 const LONGITUDE = process.env.LONGITUDE ||'';
-const AUTH_TOKEN = process.env.AUTH_TOKEN; // FLEET VARIABLE
+const AUTH_TOKEN = process.env.AUTH_TOKEN||''; // FLEET VARIABLE
 const USERNAME = process.env.USERNAME;
 const PASSWORD = process.env.PASSWORD;
 
@@ -258,14 +258,21 @@ app.listen(3000,()=>{
 
     sdk.auth.isLoggedIn().then(function(isLoggedIn) {
         if (isLoggedIn) {
-            console.log('I\'m in!');
+            console.log('Logged in');
         } else {
-            console.log('Too bad!');
-            //sdk.auth.logout();
-            sdk.auth.loginWithToken(AUTH_TOKEN, function(error){
-                if (error) throw error
-            });
-            console.log("Login successful!")
+            console.log('Not logged in. Trying to login');
+            
+            if(AUTH_TOKEN){
+                sdk.auth.loginWithToken(AUTH_TOKEN, function(error){
+                    if (error) {
+                        console.log(error);
+                    }else{
+                        console.log("Login successful!")
+                    }
+                });
+            }
+            
+            
         }
     });
 	
