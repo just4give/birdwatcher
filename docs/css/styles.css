@@ -3,6 +3,7 @@
 :root{
     --primary-color: #099b0f;
     --secondary-color: #79991a;
+    --dark-text-color: #282727;
 }
 body{
     padding: 20px;
@@ -67,6 +68,7 @@ body{
     color: white;
     padding: 20px;
     min-height: 200px;
+    border-radius: 5px;
   }
 
   .contributors img{
@@ -103,6 +105,54 @@ body{
     color: var(--primary-color);
   }
 
+  .animation2 {
+    padding-top: 50px;
+    height: 500px;
+    background-color:var(--secondary-color);
+    overflow: hidden;
+    color: white;
+    border-bottom: 5px solid var(--secondary-color);
+  }
+
+  .animation2 img{
+    width: 400px;
+    position: relative;
+    border-radius: 20px;
+  }
+
+
   .diy img{
     width: 100%;
+  }
+  .diy p,  .diy ul li{
+    color: var(--dark-text-color);
+    font-size: 1.5em;
+  }
+
+  .steps {
+    padding-top: 50px;
+    padding-bottom: 50px;
+    background-color: white;
+    border-top: 5px solid var(--secondary-color);
+    color: var(--primary-color);
+  }
+
+  .steps .card{
+    height: 500px;
+  }
+  .steps img{
+    width: 300px;
+    height: 300px;
+    border-radius: 20px;
+  }
+
+  .steps .card-title{
+    color: var(--dark-text-color);
+    text-align: center;
+    font-weight: bold;
+    
+  }
+  .steps .card-text{
+    color: var(--dark-text-color);
+    text-align: center;
   }
