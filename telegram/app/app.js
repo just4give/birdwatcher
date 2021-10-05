@@ -1,5 +1,5 @@
 const TelegramBot = require('telegram-bot-api'); 
-const SdkInstanceFactory = require("balena-sdk");
+const { getSdk } = require('balena-sdk');
 const axios = require('axios');
 const fs = require('fs');
 const eisdk = require('./ei_sdk');
@@ -254,27 +254,19 @@ app.post('/settings/update-motion', async (req, res)=>{
 app.listen(3000,()=>{
     console.log("Tools block started ");
 
-    sdk = SdkInstanceFactory();
-
-    sdk.auth.isLoggedIn().then(function(isLoggedIn) {
-        if (isLoggedIn) {
-            console.log('Logged in');
-        } else {
-            console.log('Not logged in. Trying to login');
-            
-            if(AUTH_TOKEN){
-                sdk.auth.loginWithToken(AUTH_TOKEN, function(error){
-                    if (error) {
-                        console.log(error);
-                    }else{
-                        console.log("Login successful!")
-                    }
-                });
-            }
-            
-            
-        }
-    });
-	
+    sdk = getSdk({
+        // only required if the device is not running on balena-cloud.com
+        apiUrl: process.env.BALENA_API_URL
+      });
+    
+      try {
+        await sdk.auth.logout();
+        await sdk.auth.loginWithToken(process.env.BALENA_API_KEY);
+        console.log("Login successful!")
+        //await sdk.models.device.tags.set(process.env.BALENA_DEVICE_UUID, 'stats.last_server_start', Date.now());
+      } catch (err) {
+        console.log(err);
+        console.error('Error while setting stats.last_server_start tag', err);
+      }
 
 })
