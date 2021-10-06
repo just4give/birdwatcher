@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap');
 
 :root{
-    --primary-color: #099b0f;
+    --primary-color: #067009;
     --secondary-color: #79991a;
     --dark-text-color: #282727;
 }
@@ -11,6 +11,13 @@ body{
     font-family: 'Roboto Condensed', sans-serif !important;
 }
 
+.logo-holder{
+  margin-top: 10px;
+}
+.logo-holder img{
+  width: 100px;
+  margin-right: 20px;
+}
   .title{
     font-weight: bold;
     color: var(--primary-color);
@@ -47,6 +54,8 @@ body{
   .btn.btn-primary{
     background-color: var(--primary-color)!important;
     background-image: none;
+    font-weight: bold;
+    color: white;
   }
 
   .line{
@@ -120,6 +129,19 @@ body{
     border-radius: 20px;
   }
 
+  .animation3 {
+    padding-top: 50px;
+    height: 500px;
+    background-color:white;
+    overflow: hidden;
+    color: var(--dark-text-color);
+    border-bottom: 5px solid var(--secondary-color);
+  }
+
+  .animation3 img{
+    
+    border-radius: 20px;
+  }
 
   .diy img{
     width: 100%;

@@ -65,8 +65,6 @@ services:
                 restart: always
                 network_mode: host
                 privileged: true
-                ports: 
-                        - "8100"
                 labels:
                         io.balena.features.dbus: '1'
                         io.balena.features.firmware: '1'
@@ -75,8 +73,16 @@ services:
                 environment:
                         DBUS_SYSTEM_BUS_ADDRESS: "unix:path=/host/run/dbus/system_bus_socket"
                         PORTAL_SSID: "BIRD-WIFI-AP"
-                        PORTAL_LISTENING_PORT: "8100"
-
+                        
+        supervisor:
+                build: ./supervisor
+                restart: always
+                network_mode: host
+                privileged: true
+                cap_add:
+                        - NET_ADMIN
+                labels:
+                        io.balena.features.supervisor-api: 1
 volumes:
         shared-data:
         shared-media:

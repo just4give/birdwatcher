@@ -10,13 +10,9 @@
   
   <link rel="stylesheet" href="./css/styles.css">
 
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
-  <!-- Optional theme -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
-    integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
+  
   <!-- Latest compiled and minified JavaScript -->
   
   <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
@@ -40,13 +36,19 @@
  <div class="container">
     <div class="col-xs-12 poster-image"  >
         <div class="hero-text">
-            <h1 class="title">Bird Watcher</h1>
-            <h3>Build, Train  </h3>
-            <h3>And Deploy</h3>
-            <h3>Your Own Smart Bird Feeder </h3>
-            <h3>It's Open Source And FREE </h3>
+            <h1 class="title">Bird Watcher</h2>
+            <h2>Build, Train  </h2>
+            <h2>And Deploy</h3>
+            <h2>Your Own Smart Bird Feeder </h2>
+            <h2>It's Open Source And FREE </h2>
             <div class="line"></div>
-            <a  class="btn btn-lg btn-primary" href="https://hub.balena.io/g_mithun_das/birdwatcher" target="_blank">Join The Fleet</a>
+            <a  class="btn btn-lg btn-primary" href="https://hub.balena.io/g_mithun_das/birdwatcher" target="_blank" rel="noopener">Join The Fleet</a>
+
+            <div class="logo-holder">
+              <img src="./assets/balena-cam.png"  alt="img">
+              <img src="./assets/ei_logo.png"  alt="img">
+              
+            </div>
             
           </div>
     </div>
@@ -74,7 +76,7 @@
           <img class="card-img-top" src="./assets/c1.jpg" alt="Mithun Das">
           <div class="card-body">
             <h3 class="card-title">Mithun Das</h3>
-            <h4 class="card-text">Distinguished Engineer at Cox</h4>
+            <h4 class="card-text">Distinguished Engineer at Cox Automotive</h4>
             
           </div>
         </div>
@@ -104,15 +106,28 @@
       </section>
     </div>
 
+    <div class="col-xs-12 animation3">
+      <div class="col-xs-12 col-sm-8">
+        <img src="./assets/bg6.png" alt="img">
+      </div>
+
+      <div class="col-xs-12 col-sm-4">
+       <h2>Never Miss Any Visitors</h2>
+       <h2>Help To Identify Unknown Birds</h2>
+       <h2>Discuss With Other Birders on Discord</h2>
+      </div>
+
+    </div>
+
     <div class="col-xs-12 diy">
       <div class="col-xs-12 col-sm-6">
-        <img src="./assets/3d1.jpeg">
+        <img src="./assets/3d1.jpeg"  alt="img">
       </div>
 
       <div class="col-xs-12 col-sm-6">
        <h2>3D Print Your Own Feeder</h2>
        <p>If you have 3D prinuter, download our STL files and print them. If you make your own, don't forget to share.</p>
-       <a  class="btn btn-lg btn-primary" href="https://github.com/just4give/balena-ei-linux-bird-watcher/files/7095446/bird_watcher_3dprint.zip" target="_blank">Download STL</a>
+       <a  class="btn btn-lg btn-primary" href="https://github.com/just4give/balena-ei-linux-bird-watcher/files/7095446/bird_watcher_3dprint.zip" target="_blank" rel="noopener">Download STL</a>
       </div>
 
     </div>
@@ -135,16 +150,20 @@
        <h2>Softwares You Need</h2>
 
        <ul>
-         <li>Balena Etcher [<a href="https://www.balena.io/etcher/" target="_blank">Free Download</a>] </li>
-         <li>Balena Cloud Account [<a href="https://www.balena.io/cloud/">Free Signup</a>] Required only if you want to create own Fleet</li>
-         <li>Edge Impulse Account [<a href="https://www.edgeimpulse.com/">Free Signup</a>] Required only if you want to create own ML model</li>
-         <li>Telegram Messenger [<a href="https://telegram.org/">Free Signup</a>] Required if you want to get notfication and share with community</li>
+         <li>Balena Etcher [<a href="https://www.balena.io/etcher/" target="_blank" rel="noopener">Free Download</a>] </li>
+         <li>Balena Cloud Account [<a href="https://www.balena.io/cloud/" target="_blank" rel="noopener">Free Signup</a>] Required only if you want to create own Fleet</li>
+         <li>Edge Impulse Account [<a href="https://www.edgeimpulse.com/" target="_blank" rel="noopener">Free Signup</a>] Required only if you want to create own ML model</li>
+         <li>Telegram Messenger [<a href="https://telegram.org/" target="_blank" rel="noopener">Free Signup</a>] Required if you want to get notfication and share with community</li>
        </ul>
        
       </div>
 
       <div class="col-xs-12 col-sm-6">
-        <img src="./assets/hw1.jpg">
+        <div class="col-xs-12">
+          <img src="./assets/hw1.jpg"  alt="img">
+        </div>
+        
+        
       </div>
 
     </div>
@@ -209,9 +228,7 @@ t
 
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
    
   <script>
    
