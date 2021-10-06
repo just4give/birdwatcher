@@ -36,13 +36,23 @@ post-provisioning: >-
   
   #### Use your own Edge Impulse ML model
   
-  If you create your own Edge Impulse ML model, you can use it on your device.
+  The project will start automatically working with Mithun's original Bird Watcher ML model. However if you would like to re-train your model and improve it, feel free to follow these instructions below:
   
-  * Go to [Edge Impulse](https://studio.edgeimpulse.com) and go to Keys. 
+  
+  * Go to [Bird Watcher ML model](https://studio.edgeimpulse.com/public/40986/latest) and clone it on your [Edge Impulse](https://studio.edgeimpulse.com) account.
+  
+  * Go to `Keys` next to `Project Info` menu. 
   
   * Create a new Edge Impulse API Key and copy it.
   
-  * Go to [http://birdwatcher.local](http://birdwatcher.local), go into `Settings` an update the Edge Impulse credentials with the newest API key.
+  * Go to [http://birdwatcher.local](http://birdwatcher.local)
+  
+  * Go to `Settings` and introduce the Edge Impulse API key.
+  
+  * Now you can start training your Edge Impulse ML model.
+  
+
+  Otherwise feel free to create your own Edge Impulse ML model with other topics. Feel free to share innovations you do on the top of this project.
 
   
   #### Create a Telegram bot and a Channel to share your watched birds
@@ -73,6 +83,9 @@ post-provisioning: >-
     Create a local community with schools and others who would like to learn about birds and nature around them. Involve families, teachers and more.
   
   ### Troubleshooting
+  
+  If you have any issue feel free to write on [https://forums.balena.io](https://forums.balena.io).
+  
   
   #### Local website does not work
   
