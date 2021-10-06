@@ -1,7 +1,7 @@
 version: '2.1'
 services: 
         
-        tools:
+        telegram:
                 build: ./telegram
                 privileged: true
                 restart: always
@@ -24,7 +24,7 @@ services:
                 ports: 
                         - 8080
                 depends_on:
-                        - tools
+                        - telegram
                 labels:
                         io.balena.features.dbus: '1'
                         io.balena.features.kernel-modules: '1'

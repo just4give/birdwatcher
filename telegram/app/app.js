@@ -194,7 +194,7 @@ app.post('/settings/update-geo', async (req, res)=>{
 	try {
 
         if (req.body.lat != LATITUDE){
-            await sdk.models.device.envVar.set(
+            await sdk.models.device.tags.set(
                 process.env.BALENA_DEVICE_UUID,
                 "LATITUDE",
                 req.body.lat
@@ -203,7 +203,7 @@ app.post('/settings/update-geo', async (req, res)=>{
         }
 		
         if (req.body.lon != LONGITUDE){
-            await sdk.models.device.envVar.set(
+            await sdk.models.device.tags.set(
                 process.env.BALENA_DEVICE_UUID,
                 "LONGITUDE",
                 req.body.lon
@@ -251,7 +251,7 @@ app.post('/settings/update-motion', async (req, res)=>{
 
 
 
-app.listen(3000,()=>{
+app.listen(3000, async(req, res)=>{
     console.log("Tools block started ");
 
     sdk = getSdk({
