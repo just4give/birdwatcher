@@ -1,8 +1,8 @@
 version: '2.1'
 services: 
         
-        telegram:
-                build: ./telegram
+        tools:
+                build: ./tools
                 privileged: true
                 restart: always
                 ports: 
@@ -24,7 +24,7 @@ services:
                 ports: 
                         - 8080
                 depends_on:
-                        - telegram
+                        - tools
                 labels:
                         io.balena.features.dbus: '1'
                         io.balena.features.kernel-modules: '1'
@@ -66,8 +66,6 @@ services:
                 restart: unless-stopped
                 network_mode: host
                 privileged: true
-                ports: 
-                        - 8100
                 labels:
                         io.balena.features.dbus: '1'
                         io.balena.features.firmware: '1'
