@@ -15,7 +15,7 @@ This project enables you to run Edge Impulse Linux SDK on balenaOS thus allowing
 - [X] Settings: Add GPS (lat and lon form) of the Bird Watcher.
 - [X] Settings: Add the possibility to add Telegram information.
 - [X] Settings: Add the possibility to make the Bird Watcher public or private.
-- [ ] Settings: Add the possibility to change password of the UI.
+- [X] Settings: Add the possibility to change password of the UI.
 - [ ] Make a cron to get Device Variables from the balenaCloud fleet and create a markdown file on github with the list of Bird Watchers (location + telegram link).
 - [X] Telegram: check about group bots to add more people on the channel.
 - [ ] Migrate Vanila JS Web App to React or Svelte 

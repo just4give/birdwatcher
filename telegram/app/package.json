@@ -13,7 +13,7 @@
   "dependencies": {
     "axios": "^0.21.1",
     "express": "^4.17.1",
-    "balena-sdk": "^13.2.1",
+    "balena-sdk": "^15.0.0",
     "telegram-bot-api": "^2.0.1"
   }
 }
