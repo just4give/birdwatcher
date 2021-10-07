@@ -1,6 +1,8 @@
 
 # Bird Watcher using Edge Impulse Linux SDK and BalenaOS
 
+Checkout the website -> https://just4give.github.io/birdwatcher/
+
 This project enables you to run Edge Impulse Linux SDK on balenaOS thus allowing you to manage a fleet of devices with the same software stack on them which can do various kinds of on-device Machine Learning applications. 
 
 <p align="center">
@@ -90,6 +92,8 @@ If you wish to turn off telegram notification for any reason, you can set below 
 ENABLE_TG
 ```
 
+### Manage WiFi
+If you change your Wifi SSID or password, don't worry, you can reconfigure your WiFi without physically touching the device. When your device lose internet connection, it will create an access point named `BIRD-WIFI-AP`. Choose that and it will open captive UI where you can selected your new Wifi and password. 
 
 
 ### Download 3D models and Print 
