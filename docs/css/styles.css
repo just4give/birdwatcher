@@ -176,5 +176,33 @@ body{
   }
   .steps .card-text{
     color: var(--dark-text-color);
+    text-align: left;
+  }
+
+
+  .fleet {
+    padding-top: 50px;
+    padding-bottom: 50px;
+    background-color: white;
+    border-top: 5px solid var(--secondary-color);
+    color: var(--primary-color);
+  }
+
+  .fleet .card{
+    padding-bottom: 20px;
+  }
+  .fleet img{
+    width: 100%;
+    border-radius: 20px;
+  }
+
+  .fleet .card-title{
+    color: var(--dark-text-color);
     text-align: center;
+    font-weight: bold;
+    
+  }
+  .fleet .card-text{
+    color: var(--dark-text-color);
+    text-align: left;
   }
