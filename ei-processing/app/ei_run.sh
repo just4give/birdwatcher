@@ -7,9 +7,6 @@ if [[ ! -z $CHECK_CONN_FREQ ]]
         freq=120
 fi
 
-
-wget https://raw.githubusercontent.com/just4give/birdwatcher/master/data/birds.json 
-
 if [ $EI_COLLECT_MODE_IMAGE = "Y" ];
 then
     edge-impulse-linux --api-key $EI_API_KEY_IMAGE --disable-microphone
