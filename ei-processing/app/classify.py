@@ -17,8 +17,7 @@ import uuid
 import datetime
 import logging
 import json
-import board
-import digitalio
+
 
 async_mode = None
 runner = None
@@ -45,8 +44,6 @@ if 'ENABLE_TG' in os.environ and os.environ['ENABLE_TG'] == "Y":
 if 'PIXEL_THRESHOLD' in os.environ :
     PIXEL_THRESHOLD = int(os.environ['PIXEL_THRESHOLD'])
 
-pir_sensor = digitalio.DigitalInOut(board.D4)
-pir_sensor.direction = digitalio.Direction.INPUT
 
 
 log = logging.getLogger('werkzeug')
@@ -418,7 +415,7 @@ def main():
                     print('', flush=True)
 
                 elif "bounding_boxes" in res["result"].keys():
-                    #print('Found %d bounding boxes (%d ms.)' % (len(res["result"]["bounding_boxes"]), res['timing']['dsp'] + res['timing']['classification']))
+                    print('Found %d bounding boxes (%d ms.)' % (len(res["result"]["bounding_boxes"]), res['timing']['dsp'] + res['timing']['classification']))
                     pred_labels = []
                     max_label = ""
                     max_score = 0

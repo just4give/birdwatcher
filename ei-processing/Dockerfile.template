@@ -25,8 +25,8 @@ RUN apt-get update && \
     libatlas-base-dev \
     libavformat-dev \
     libswscale-dev \
-    libqtgui4 \
-    libqt4-test \
+    #libqtgui4 \
+    #libqt4-test \
     libavdevice-dev \
     libavfilter-dev \
     libavcodec-dev \
@@ -50,7 +50,7 @@ RUN pip3 install --upgrade pip
 RUN pip3 install numpy opencv-python requests imutils
 RUN pip3 install edge_impulse_linux -i https://pypi.python.org/simple
 RUN pip3 install Flask flask-socketio==4.3.2 flask_cors flask_basicauth
-RUN pip3 install RPi.Gpio adafruit-blinka 
+#RUN pip3 install RPi.Gpio adafruit-blinka 
 
 WORKDIR /usr/src/app
 
