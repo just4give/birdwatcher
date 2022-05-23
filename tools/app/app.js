@@ -6,7 +6,7 @@ const eisdk = require('./ei_sdk');
 
 const TG_TOKEN =  process.env.TG_TOKEN ||''; 
 const TG_CHAT_ID = process.env.TG_CHAT_ID ||'';
-const bot = new TelegramBot({token: TG_TOKEN}); 
+let bot; 
 const ENABLE_MOTION = process.env.ENABLE_MOTION ||'';
 const EI_API_KEY_IMAGE = process.env.EI_API_KEY_IMAGE ||'';
 const LATITUDE = process.env.LATITUDE ||'';
@@ -253,13 +253,15 @@ app.post('/settings/update-motion', async (req, res)=>{
 
 app.listen(3000, async(req, res)=>{
     console.log("Tools block started ");
+    try{
 
-    sdk = getSdk({
-        // only required if the device is not running on balena-cloud.com
-        apiUrl: process.env.BALENA_API_URL
-      });
+        bot = new TelegramBot({token: TG_TOKEN});
+        sdk = getSdk({
+            // only required if the device is not running on balena-cloud.com
+            apiUrl: process.env.BALENA_API_URL
+        });
     
-      try {
+      
         await sdk.auth.logout();
         await sdk.auth.loginWithToken(process.env.BALENA_API_KEY);
         console.log("Login successful!")
