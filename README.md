@@ -1,4 +1,6 @@
 
+[![Twitter](https://img.shields.io/twitter/url.svg?label=Follow%20%40tweetmithund&style=social&url=https%3A%2F%2Ftwitter.com%2Ftweetmithund)](https://twitter.com/tweetmithund)
+
 # Bird Watcher using Edge Impulse Linux SDK and BalenaOS
 
 Checkout the website -> https://just4give.github.io/birdwatcher/
