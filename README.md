@@ -62,7 +62,7 @@ This project enables you to run Edge Impulse Linux SDK on balenaOS thus allowing
 
 Click on the *deploy-with-balena* button as given below, which will help you to deploy your application to balenaCloud and then to your Raspbery Pi in **one-click!**
 
-[![](https://balena.io/deploy.png)](https://dashboard.balena-cloud.com/deploy?repoUrl=https://github.com/jvrodley/birdwatcher)
+[![](https://balena.io/deploy.png)](https://dashboard.balena-cloud.com/deploy?repoUrl=https://github.com/just4give/birdwatcher)
 
 Else you can build your own release by cloning this repo on your primary machine (x86) and use the following commands :
 ```
