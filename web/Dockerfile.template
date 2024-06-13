@@ -1,4 +1,6 @@
-FROM balenalib/%%BALENA_MACHINE_NAME%%-debian:stretch-run
+# FROM balenalib/%%BALENA_MACHINE_NAME%%-debian:stretch-run
+# going from stretch to buster magically fixed build errors
+FROM balenalib/%%BALENA_MACHINE_NAME%%-debian:buster-run
 
 # Defines our working directory in container
 WORKDIR /usr/src/app

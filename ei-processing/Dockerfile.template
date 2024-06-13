@@ -1,5 +1,7 @@
 #FROM balenalib/raspberrypi3-debian-node:12
-FROM balenalib/%%BALENA_MACHINE_NAME%%-debian-node:12
+#FROM balenalib/%%BALENA_MACHINE_NAME%%-debian-node:12
+FROM balenalib/%%BALENA_MACHINE_NAME%%-node:12-bullseye-run
+
 # Install dependencies
 RUN apt-get update && \
     apt-get install -yq \
@@ -44,12 +46,15 @@ RUN cd /tmp && \
     sudo make install && \
     sudo ldconfig
 
-RUN npm config set user root && sudo npm install edge-impulse-linux -g
+# pin edge-impulse-linux to 1.4.0 or it'll catch a bad version
+RUN npm config set user root && sudo npm install edge-impulse-linux@1.4.0 -g
 
 RUN pip3 install --upgrade pip 
 RUN pip3 install numpy opencv-python requests imutils
 RUN pip3 install edge_impulse_linux -i https://pypi.python.org/simple
 RUN pip3 install Flask flask-socketio==4.3.2 flask_cors flask_basicauth Werkzeug==2.0.1
+# Don't know why it ever worked without installing pyaudio, but here it is
+RUN pip3 install pyaudio
 #RUN pip3 install RPi.Gpio adafruit-blinka 
 
 WORKDIR /usr/src/app
@@ -57,8 +62,10 @@ WORKDIR /usr/src/app
 EXPOSE 8080
 
 COPY ./app/ /usr/src/app/
-
+# Following is the joy of developing on windows - loses the execute bit
+RUN /bin/chmod +x /usr/src/app/ei_run.sh
 
 CMD ["/usr/src/app/ei_run.sh"]
+
 
 
